@@ -1,7 +1,7 @@
 #include "Game.h"
 
 int main() {
-	RenderWindow window(VideoMode(800, 600), "Wingman Game", Style::Default);
+	RenderWindow window(VideoMode(1920, 1080), "Wingman Game", Style::Default);
 
 	Game game(&window);
 
