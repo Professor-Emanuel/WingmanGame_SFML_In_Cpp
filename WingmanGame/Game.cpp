@@ -5,22 +5,28 @@ Game::Game(RenderWindow* window) {
 	window->setFramerateLimit(60);
 
 	//init textures
-	playerTexture.loadFromFile("Textures/ship.png");
+	this->playerTexture.loadFromFile("Textures/ship.png");
+	this->bulletTexture.loadFromFile("Textures/Guns/missileTex01.png");
 	
 	//init player
-	player = new Player(&this->playerTexture, Keyboard::I, Keyboard::K, Keyboard::J, Keyboard::L, Keyboard::LShift);
+	this->players.push_back(Player(&playerTexture, &bulletTexture));
+
 }
 
 Game::~Game() {
-	delete player;
+	
 }
 
 void Game::Update() {
-	player->Update();
+	for (size_t i = 0; i < this->players.size(); i++) {
+		this->players[i].Update();
+	}
 }
 
 void Game::Draw() {
-	window->clear();
-	player->Draw(*window);
-	window->display();
+	this->window->clear();
+	for (size_t i = 0; i < this->players.size(); i++) {
+		players[i].Draw(*this->window);
+	}
+	this->window->display();
 }
