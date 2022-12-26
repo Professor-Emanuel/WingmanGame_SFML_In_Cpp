@@ -10,22 +10,26 @@ class Player
 {
 private:
 	Texture* texture;
-	Sprite shape;
+	Sprite sprite;
 	RectangleShape hitBox;
+
+	int controls[5];
 	int level;
 	int exp;
 	int expNext;
-	int HP;
+	int hp;
 	int hpMax;
 	int score;
 	int damage;
 	int damageMax;
 
 public:
-	Player();
+	//Player(Texture *texture);
+	Player(Texture* texture, int UP = 22, int DOWN =18, int LEFT = 0, int RIGHT = 3, int SHOOT = 57);
 	virtual ~Player();
 
 	void Update();
-	void Draw();
+	void Draw(RenderTarget& target);
+	void Movement();
 };
 
