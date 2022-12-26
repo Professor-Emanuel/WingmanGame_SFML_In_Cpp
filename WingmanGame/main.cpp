@@ -2,7 +2,8 @@
 
 int main() {
 	RenderWindow window(VideoMode(800, 600), "Wingman Game", Style::Default);
-	window.setFramerateLimit(60);
+
+	Game game(&window);
 
 	//game loop
 	while (window.isOpen()) {
@@ -15,6 +16,9 @@ int main() {
 				window.close();
 			}
 		}
+
+		game.Update();
+		game.Draw();
 	}
 
 	return 0;
