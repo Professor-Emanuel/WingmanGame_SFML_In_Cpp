@@ -10,6 +10,9 @@ private:
 	Texture playerTexture;
 	Texture bulletTexture;
 
+	Font font;
+	std::vector<Text> followPlayerTexts;
+	std::vector<Text> staticPlayerTexts;
 
 public:
 	Game(RenderWindow *window);
@@ -23,8 +26,11 @@ public:
 	//setters
 
 	//functions
-	void CombatUpdate();
+	void InitUI();
+	void UpdateUI();
+	//void CombatUpdate();
 	void Update();
+	void DrawUI();
 	void Draw();
 };
 
