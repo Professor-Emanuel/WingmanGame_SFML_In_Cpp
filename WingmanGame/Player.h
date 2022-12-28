@@ -14,6 +14,10 @@ private:
 	std::vector<Bullet> bullets;
 	Texture* bulletTexture;
 
+	int shootTimer;
+	int damageTimer;
+	int shootTimerMax;
+	int damageTimerMax;
 	int controls[5];
 	int level;
 	int exp;
@@ -29,7 +33,14 @@ public:
 	Player(Texture* texture, Texture* bulletTexture, int UP = 22, int DOWN =18, int LEFT = 0, int RIGHT = 3, int SHOOT = 57);
 	virtual ~Player();
 
-	void Update();
+	//accessors
+	inline std::vector<Bullet>& getBullets() {
+		return this->bullets;
+	}
+
+	//functions
+	void Combat();
+	void Update(Vector2u windowBounds);
 	void Draw(RenderTarget& target);
 	void Movement();
 

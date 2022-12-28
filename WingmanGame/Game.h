@@ -23,6 +23,7 @@ public:
 	//setters
 
 	//functions
+	void CombatUpdate();
 	void Update();
 	void Draw();
 };
