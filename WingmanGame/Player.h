@@ -7,6 +7,7 @@ class Player
 {
 private:
 	unsigned playerNumber;
+	Vector2f playerCenter;
 	Texture* texture;
 	Sprite sprite;
 	RectangleShape hitBox;
@@ -36,6 +37,12 @@ public:
 	//accessors
 	inline std::vector<Bullet>& getBullets() {
 		return this->bullets;
+	}
+	inline const Vector2f& getPosition() const {
+		return this->sprite.getPosition();
+	}
+	inline const String getHpAsString() const {
+		return std::to_string(this->hp) + "/" + std::to_string(this->hpMax);
 	}
 
 	//functions
