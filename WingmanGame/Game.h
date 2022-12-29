@@ -9,6 +9,7 @@ private:
 	std::vector<Player> players;
 	Texture playerTexture;
 	Texture bulletTexture;
+	Texture gunTexture01;
 
 	Font font;
 	std::vector<Text> followPlayerTexts;
