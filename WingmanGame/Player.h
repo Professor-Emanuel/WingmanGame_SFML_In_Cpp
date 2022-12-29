@@ -12,6 +12,10 @@ private:
 	Sprite sprite;
 	RectangleShape hitBox;
 
+	//accessories
+	Sprite mainGunSprite;
+	Texture* mainGunTexture;
+
 	std::vector<Bullet> bullets;
 	Texture* bulletTexture;
 
@@ -20,6 +24,13 @@ private:
 	int shootTimerMax;
 	int damageTimerMax;
 	int controls[5];
+
+	Vector2f currentVelocity;
+	float maxVelocity;
+	float acceleration;
+	Vector2f direction;
+	float stabilizerForce;
+
 	int level;
 	int exp;
 	int expNext;
@@ -31,7 +42,8 @@ private:
 
 public:
 	//Player(Texture *texture);
-	Player(Texture* texture, Texture* bulletTexture, int UP = 22, int DOWN =18, int LEFT = 0, int RIGHT = 3, int SHOOT = 57);
+	Player(Texture* texture, Texture* bulletTexture, Texture* mainGunTexture,
+		int UP = 22, int DOWN =18, int LEFT = 0, int RIGHT = 3, int SHOOT = 57);
 	virtual ~Player();
 
 	//accessors
@@ -46,6 +58,7 @@ public:
 	}
 
 	//functions
+	void UpdateAccessories();
 	void Combat();
 	void Update(Vector2u windowBounds);
 	void Draw(RenderTarget& target);
