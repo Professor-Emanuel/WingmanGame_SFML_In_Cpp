@@ -18,7 +18,7 @@ private:
 	Vector2f direction;
 
 public:
-	Bullet(Texture* texture, Vector2f position, Vector2f direction, float initialVelocity, float maxVelocity, float acceleration);
+	Bullet(Texture* texture, Vector2f position, Vector2f scale, Vector2f direction, float initialVelocity, float maxVelocity, float acceleration);
 	virtual ~Bullet();
 
 	//accessors

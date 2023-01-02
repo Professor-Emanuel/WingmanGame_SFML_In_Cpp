@@ -14,9 +14,10 @@ private:
 
 	//accessories
 	Sprite mainGunSprite;
-
 	std::vector<Bullet> bullets;
-	Texture* bulletTexture;
+	Texture* laserTexture;
+	Texture* missile01Texture;
+	Texture* missile02Texture;
 
 	int shootTimer;
 	int damageTimer;
@@ -38,6 +39,13 @@ private:
 	int score;
 	int damage;
 	int damageMax;
+
+	int currentWeapon;
+
+	//upgades
+	int mainGunLevel;
+	bool dualMissile01;
+	bool dualMissile02;
 
 public:
 	//Player(Texture *texture);
