@@ -7,19 +7,26 @@ class Game
 {
 private:
 	RenderWindow* window;
+	bool runGame;
 
-	//players
-	std::vector<Player> players;
-
-	//enemies
-	std::vector<Enemy> enemies;
-
-	//textures
-	std::vector<Texture> textures;
-
+	//text
 	Font font;
 	std::vector<Text> followPlayerTexts;
 	std::vector<Text> staticPlayerTexts;
+	Text enemyText;
+
+	//players
+	std::vector<Player> players;
+	int alivePlayers;
+
+	//enemies
+	std::vector<Enemy> enemies;
+	std::vector<Enemy> enemiesSaved;
+	int enemySpawnTimer;
+	int enemySpawnTimerMax;
+	
+	//textures
+	std::vector<Texture> textures;
 
 public:
 	Game(RenderWindow *window);
