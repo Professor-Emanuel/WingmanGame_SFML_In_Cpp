@@ -1,12 +1,18 @@
 #pragma once
 
 #include "Player.h"
+#include "Enemy.h"
 
 class Game
 {
 private:
 	RenderWindow* window;
+
+	//players
 	std::vector<Player> players;
+
+	//enemies
+	std::vector<Enemy> enemies;
 
 	//textures
 	std::vector<Texture> textures;

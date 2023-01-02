@@ -1,2 +1,11 @@
-﻿  Player.cpp
+﻿  Enemy.cpp
+D:\OneDrive - e-uvt.ro\Informatica\Programing\Cpp_Games\WingmanGame_SFML_In_Cpp\WingmanGame\Enemy.cpp(13,39): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
+          with
+          [
+              T=unsigned int
+          ]
+  Game.cpp
+  main.cpp
+  Generating Code...
+D:\OneDrive - e-uvt.ro\Informatica\Programing\Cpp_Games\WingmanGame_SFML_In_Cpp\WingmanGame\Bullet.h(26): warning C4172: returning address of local variable or temporary
   WingmanGame.vcxproj -> D:\OneDrive - e-uvt.ro\Informatica\Programing\Cpp_Games\WingmanGame_SFML_In_Cpp\x64\Debug\WingmanGame.exe

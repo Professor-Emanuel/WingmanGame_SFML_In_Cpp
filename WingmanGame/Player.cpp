@@ -3,6 +3,7 @@
 unsigned Player::players = 0;
 
 enum controls {UP = 0, DOWN, LEFT, RIGHT, SHOOT};
+enum weapons { LASER = 0, MISSILE01, MISSILE02};
 
 Player::Player(std::vector<Texture> &textures,
 	int UP, int DOWN, int LEFT, int RIGHT, int SHOOT) 
@@ -10,31 +11,50 @@ Player::Player(std::vector<Texture> &textures,
 	hpMax(10), damage(1), damageMax(2),
 	score(0) 
 {
+	//update positions
+	this->playerCenter.x = this->sprite.getPosition().x + this->sprite.getGlobalBounds().width / 2;
+	this->playerCenter.y = this->sprite.getPosition().y + this->sprite.getGlobalBounds().height / 2;
+
+	//textures and sprites
 	this->sprite.setTexture(textures[0]);
 	this->sprite.setScale(0.13f, 0.13f);
 
-	this->bulletTexture = &textures[1];
+	this->laserTexture = &textures[1];
+	this->missile01Texture = &textures[2];
 
-	this->mainGunSprite.setTexture(textures[2]);
+	this->mainGunSprite.setTexture(textures[3]);
 	this->mainGunSprite.setOrigin(
 		this->mainGunSprite.getGlobalBounds().width / 2,
 		this->mainGunSprite.getGlobalBounds().height / 2);
 	this->mainGunSprite.rotate(90);
 
+	this->mainGunSprite.setPosition(this->playerCenter.x + 20.f, this->playerCenter.y);
+
+	//timers
 	this->shootTimerMax = 25;
 	this->shootTimer = this->shootTimerMax;
 	this->damageTimerMax = 10;
 	this->damageTimer = this->damageTimerMax;
 
+	//controls
 	this->controls[controls::UP] = UP;
 	this->controls[controls::DOWN] = DOWN;
 	this->controls[controls::LEFT] = LEFT;
 	this->controls[controls::RIGHT] = RIGHT;
 	this->controls[controls::SHOOT] = SHOOT;
 
+	//velocity and acceleration
 	this->maxVelocity = 25.f;
 	this->acceleration = 0.8f;
 	this->stabilizerForce = 0.4f;
+
+	//guns
+	this->currentWeapon = LASER;
+
+	//upgrades
+	this->mainGunLevel = 0;
+	this->dualMissile01 = false;
+	this->dualMissile02 = false;
 
 	//add number of players for coop
 	this->playerNumber = Player::players;
@@ -136,10 +156,35 @@ void Player::Movement() {
 void Player::Combat() {
 	if (Keyboard::isKeyPressed(Keyboard::Key(this->controls[controls::SHOOT])) && this->shootTimer >= this->shootTimerMax)
 	{
-		this->bullets.push_back(Bullet(bulletTexture, Vector2f(this->playerCenter.x + 50, this->playerCenter.y), Vector2f(1.f, 0.f), 2.f,50.f, 1.f));
+		if (this->currentWeapon == LASER) {
+			//create bullet
+			if (this->mainGunLevel == 0) {
+				this->bullets.push_back(Bullet(laserTexture, Vector2f(this->playerCenter.x + 50, this->playerCenter.y), Vector2f(0.2f, 0.2f), Vector2f(1.f, 0.f), 20.f, 60.f, 5.f));
+			}
+			else if (this->mainGunLevel == 1) {
+				
+			}
+			else if (this->mainGunLevel == 2) {
+				
+			}
 
-		//animate gun
-		this->mainGunSprite.move(-30.f, 0.f);
+			
+			//animate gun
+			this->mainGunSprite.move(-30.f, 0.f);
+		}
+		else if (this->currentWeapon == MISSILE01) {
+			//create bullet
+			this->bullets.push_back(Bullet(missile01Texture, Vector2f(this->playerCenter.x, this->playerCenter.y -25.f), Vector2f(0.05f, 0.05f), Vector2f(1.f, 0.f), 2.f, 50.f, 1.f));
+
+			if (this->dualMissile01) {
+				this->bullets.push_back(Bullet(missile01Texture, Vector2f(this->playerCenter.x, this->playerCenter.y + 25.f), Vector2f(0.05f, 0.05f), Vector2f(1.f, 0.f), 2.f, 50.f, 1.f));
+			}
+		}
+		else if (this->currentWeapon == MISSILE02) {
+			if (this->dualMissile02) {
+			
+			}
+		}
 
 		this->shootTimer = 0; //reset timer
 	}
