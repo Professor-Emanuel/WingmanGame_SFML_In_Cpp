@@ -7,9 +7,9 @@ class Game
 private:
 	RenderWindow* window;
 	std::vector<Player> players;
-	Texture playerTexture;
-	Texture bulletTexture;
-	Texture gunTexture01;
+
+	//textures
+	std::vector<Texture> textures;
 
 	Font font;
 	std::vector<Text> followPlayerTexts;
