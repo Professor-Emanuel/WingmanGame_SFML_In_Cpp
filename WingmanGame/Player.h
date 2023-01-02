@@ -8,13 +8,12 @@ class Player
 private:
 	unsigned playerNumber;
 	Vector2f playerCenter;
-	Texture* texture;
+
 	Sprite sprite;
 	RectangleShape hitBox;
 
 	//accessories
 	Sprite mainGunSprite;
-	Texture* mainGunTexture;
 
 	std::vector<Bullet> bullets;
 	Texture* bulletTexture;
@@ -42,7 +41,7 @@ private:
 
 public:
 	//Player(Texture *texture);
-	Player(Texture* texture, Texture* bulletTexture, Texture* mainGunTexture,
+	Player(std::vector<Texture> &textures,
 		int UP = 22, int DOWN =18, int LEFT = 0, int RIGHT = 3, int SHOOT = 57);
 	virtual ~Player();
 

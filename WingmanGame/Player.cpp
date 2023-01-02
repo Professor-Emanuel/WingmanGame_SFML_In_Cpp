@@ -4,19 +4,18 @@ unsigned Player::players = 0;
 
 enum controls {UP = 0, DOWN, LEFT, RIGHT, SHOOT};
 
-Player::Player(Texture* texture, Texture* bulletTexture, Texture* mainGunTexture,
+Player::Player(std::vector<Texture> &textures,
 	int UP, int DOWN, int LEFT, int RIGHT, int SHOOT) 
 	:level(1), exp(0), expNext(100), hp(10),
 	hpMax(10), damage(1), damageMax(2),
 	score(0) 
 {
-	this->texture = texture;
-	this->bulletTexture = bulletTexture;
-	this->sprite.setTexture(*this->texture);
+	this->sprite.setTexture(textures[0]);
 	this->sprite.setScale(0.13f, 0.13f);
 
-	this->mainGunTexture = mainGunTexture;
-	this->mainGunSprite.setTexture(*this->mainGunTexture);
+	this->bulletTexture = &textures[1];
+
+	this->mainGunSprite.setTexture(textures[2]);
 	this->mainGunSprite.setOrigin(
 		this->mainGunSprite.getGlobalBounds().width / 2,
 		this->mainGunSprite.getGlobalBounds().height / 2);
@@ -37,6 +36,7 @@ Player::Player(Texture* texture, Texture* bulletTexture, Texture* mainGunTexture
 	this->acceleration = 0.8f;
 	this->stabilizerForce = 0.4f;
 
+	//add number of players for coop
 	this->playerNumber = Player::players;
 	Player::players++;
 }
@@ -46,7 +46,16 @@ Player::~Player() {
 }
 
 void Player::UpdateAccessories() {
-	this->mainGunSprite.setPosition(this->playerCenter.x + 20.f, this->playerCenter.y);
+	//set the position of gun to follow player
+	this->mainGunSprite.setPosition(this->mainGunSprite.getPosition().x, this->playerCenter.y);
+
+	//update the main gun and correct it after firing
+	if (this->mainGunSprite.getPosition().x < this->playerCenter.x + 20) {
+		this->mainGunSprite.move(2.f + this->currentVelocity.x, 0.f);
+	}
+	if (this->mainGunSprite.getPosition().x > this->playerCenter.x + 20.f) {
+		this->mainGunSprite.setPosition(this->playerCenter.x + 20.f, this->playerCenter.y);
+	}
 }
 
 void Player::Movement() {
@@ -127,7 +136,10 @@ void Player::Movement() {
 void Player::Combat() {
 	if (Keyboard::isKeyPressed(Keyboard::Key(this->controls[controls::SHOOT])) && this->shootTimer >= this->shootTimerMax)
 	{
-		this->bullets.push_back(Bullet(bulletTexture, this->playerCenter, Vector2f(1.f, 0.f), 2.f,50.f, 1.f));
+		this->bullets.push_back(Bullet(bulletTexture, Vector2f(this->playerCenter.x + 50, this->playerCenter.y), Vector2f(1.f, 0.f), 2.f,50.f, 1.f));
+
+		//animate gun
+		this->mainGunSprite.move(-30.f, 0.f);
 
 		this->shootTimer = 0; //reset timer
 	}
