@@ -7,6 +7,7 @@ class Game
 {
 private:
 	RenderWindow* window;
+	float dtMultiplier;
 
 	//text
 	Font font;
@@ -22,8 +23,8 @@ private:
 	//enemies
 	std::vector<Enemy> enemies;
 	std::vector<Enemy> enemiesSaved;
-	int enemySpawnTimer;
-	int enemySpawnTimerMax;
+	float enemySpawnTimer;
+	float enemySpawnTimerMax;
 	
 	//textures
 	std::vector<Texture> textures;
@@ -43,7 +44,7 @@ public:
 	void InitUI();
 	void UpdateUI();
 	//void CombatUpdate();
-	void Update();
+	void Update(const float& dt);
 	void DrawUI();
 	void Draw();
 };

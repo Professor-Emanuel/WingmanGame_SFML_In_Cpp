@@ -10,6 +10,7 @@ using namespace sf;
 class Bullet
 {
 private:
+	float dtMultiplier;
 	Texture* texture;
 	Sprite sprite;
 	Vector2f currentVelocity;
@@ -31,9 +32,9 @@ public:
 	}
 
 	//functions
-	void Movement();
+	void Movement(const float& dt);
 
-	void Update();
+	void Update(const float& dt);
 	void Draw(RenderTarget &target);
 
 };

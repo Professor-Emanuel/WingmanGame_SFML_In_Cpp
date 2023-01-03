@@ -1,10 +1,19 @@
-﻿  Game.cpp
-D:\OneDrive - e-uvt.ro\Informatica\Programing\Cpp_Games\WingmanGame_SFML_In_Cpp\WingmanGame\Game.cpp(27,43): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
-D:\OneDrive - e-uvt.ro\Informatica\Programing\Cpp_Games\WingmanGame_SFML_In_Cpp\WingmanGame\Game.cpp(77,96): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
+﻿  Bullet.cpp
+  Enemy.cpp
+D:\OneDrive - e-uvt.ro\Informatica\Programing\Cpp_Games\WingmanGame_SFML_In_Cpp\WingmanGame\Enemy.cpp(16,39): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
           with
           [
               T=unsigned int
           ]
-D:\OneDrive - e-uvt.ro\Informatica\Programing\Cpp_Games\WingmanGame_SFML_In_Cpp\WingmanGame\Player.h(69): warning C4172: returning address of local variable or temporary
-D:\OneDrive - e-uvt.ro\Informatica\Programing\Cpp_Games\WingmanGame_SFML_In_Cpp\WingmanGame\Bullet.h(26): warning C4172: returning address of local variable or temporary
+  Game.cpp
+D:\OneDrive - e-uvt.ro\Informatica\Programing\Cpp_Games\WingmanGame_SFML_In_Cpp\WingmanGame\Game.cpp(28,43): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+D:\OneDrive - e-uvt.ro\Informatica\Programing\Cpp_Games\WingmanGame_SFML_In_Cpp\WingmanGame\Game.cpp(78,96): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
+          with
+          [
+              T=unsigned int
+          ]
+  Player.cpp
+  Generating Code...
+D:\OneDrive - e-uvt.ro\Informatica\Programing\Cpp_Games\WingmanGame_SFML_In_Cpp\WingmanGame\Player.h(70): warning C4172: returning address of local variable or temporary
+D:\OneDrive - e-uvt.ro\Informatica\Programing\Cpp_Games\WingmanGame_SFML_In_Cpp\WingmanGame\Bullet.h(27): warning C4172: returning address of local variable or temporary
   WingmanGame.vcxproj -> D:\OneDrive - e-uvt.ro\Informatica\Programing\Cpp_Games\WingmanGame_SFML_In_Cpp\x64\Debug\WingmanGame.exe

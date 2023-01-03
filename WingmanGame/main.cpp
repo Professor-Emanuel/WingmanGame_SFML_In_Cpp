@@ -3,6 +3,9 @@
 int main() {
 	RenderWindow window(VideoMode(1920, 1080), "Wingman Game", Style::Default);
 
+	Clock clock;
+	float dt = 0.f;
+
 	Game game(&window);
 
 	//game loop
@@ -17,7 +20,9 @@ int main() {
 			}
 		}
 
-		game.Update();
+		dt = clock.restart().asSeconds();
+
+		game.Update(dt);
 		game.Draw();
 	}
 

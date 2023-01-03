@@ -4,7 +4,8 @@ enum textures { player = 0, laser01, missile01, mainGun01, enemy01 };
 
 Game::Game(RenderWindow* window) {
 	this->window = window;
-	window->setFramerateLimit(60);
+	//this->window->setFramerateLimit(60);
+	this->dtMultiplier = 62.5f;
 
 	//init fonts
 	this->font.loadFromFile("Fonts/Dosis-Light.ttf");
@@ -97,12 +98,12 @@ void Game::CombatUpdate() {
 }
 */
 
-void Game::Update() {
+void Game::Update(const float &dt) {
 
 	if (this->playersAlive > 0) {
 		//update timers
 		if (this->enemySpawnTimer < this->enemySpawnTimerMax) {
-			this->enemySpawnTimer++;
+			this->enemySpawnTimer += 1.f * dt * this->dtMultiplier;
 		}
 
 		//spawn enemies
@@ -120,11 +121,11 @@ void Game::Update() {
 				//bool bulletRemoved = false;
 
 				//update players
-				this->players[i].Update(this->window->getSize());
+				this->players[i].Update(this->window->getSize(), dt);
 
 				//bullets update
 				for (size_t k = 0; k < this->players[i].getBullets().size() /* && !bulletRemoved*/; k++) {
-					this->players[i].getBullets()[k].Update();
+					this->players[i].getBullets()[k].Update(dt);
 
 					//enemy collision check
 					for (size_t j = 0; j < enemies.size() /* && !enemyRemoved */; j++) {
@@ -163,7 +164,7 @@ void Game::Update() {
 		//update enemies
 		for (size_t i = 0; i < this->enemies.size(); i++) {
 
-			this->enemies[i].Update();
+			this->enemies[i].Update(dt);
 
 			for (size_t k = 0; k < this->players.size(); k++) {
 				if (this->players[k].isAlive()) {
