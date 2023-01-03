@@ -6,6 +6,7 @@
 class Player
 {
 private:
+	float dtMultiplier;
 	unsigned playerNumber;
 
 	Vector2f playerCenter;
@@ -20,10 +21,10 @@ private:
 	Texture* missile01Texture;
 	Texture* missile02Texture;
 
-	int shootTimer;
-	int damageTimer;
-	int shootTimerMax;
-	int damageTimerMax;
+	float shootTimer;
+	float damageTimer;
+	float shootTimerMax;
+	float damageTimerMax;
 	int controls[5];
 
 	Vector2f currentVelocity;
@@ -69,11 +70,12 @@ public:
 	inline const int& getPlayerNr() const { return this->playerNumber; }
 
 	//functions
-	void UpdateAccessories();
-	void Combat();
-	void Update(Vector2u windowBounds);
+	void UpdateAccessories(const float& dt);
+	void Combat(const float& dt);
+	void Movement(const float& dt);
+	void Update(Vector2u windowBounds, const float& dt);
 	void Draw(RenderTarget& target);
-	void Movement();
+	
 
 	//statics
 	static unsigned players;
