@@ -5,10 +5,9 @@ enum textures { player = 0, laser01, missile01, mainGun01, enemy01 };
 Game::Game(RenderWindow* window) {
 	this->window = window;
 	window->setFramerateLimit(60);
-	this->runGame = true;
 
 	//init fonts
-	this->font.loadFromFile("Fonts/Dosis-Light.tff");
+	this->font.loadFromFile("Fonts/Dosis-Light.ttf");
 	
 
 	//init textures
@@ -25,11 +24,13 @@ Game::Game(RenderWindow* window) {
 	
 	//init player
 	this->players.push_back(Player(this->textures));
-	this->alivePlayers = this->players.size();
+	this->playersAlive = this->players.size();
+	
 	/*this->players.push_back(Player(&playerTexture, &bulletTexture,
 		Keyboard::I, Keyboard::K, Keyboard::J, Keyboard::L, Keyboard::RShift));
 		*/
 	
+	//init enemies
 	Enemy e1(&this->textures[enemy01], this->window->getSize(),
 		Vector2f(0.f, 0.f), Vector2f(-1.f, 0.f), Vector2f(0.1f, 0.1f), 0, rand() % 3 + 1, 3, 1);
 	
@@ -38,6 +39,7 @@ Game::Game(RenderWindow* window) {
 	this->enemySpawnTimerMax = 20;
 	this->enemySpawnTimer = this->enemySpawnTimerMax;
 	
+	this->InitUI();
 }
 
 Game::~Game() {
@@ -67,12 +69,20 @@ void Game::InitUI() {
 	this->enemyText.setFont(this->font);
 	this->enemyText.setCharacterSize(14);
 	this->enemyText.setFillColor(Color::White);
+
+	this->gameOverText.setFont(this->font);
+	this->gameOverText.setFillColor(Color::Red);
+	this->gameOverText.setCharacterSize(40);
+	this->gameOverText.setString("GAME OVER!");
+	this->gameOverText.setPosition(this->window->getSize().x/2 - 100.f, this->window->getSize().y / 2);
 }
 
 void Game::UpdateUI() {
 	for (size_t i = 0; i < this->followPlayerTexts.size(); i++) {
-		this->followPlayerTexts[i].setPosition(this->players[i].getPosition().x, this->players[i].getPosition().y - 20.f);
-		this->followPlayerTexts[i].setString(std::to_string(i) + "					" + players[i].getHpAsString());
+		this->followPlayerTexts[i].setPosition(this->players[i].getPosition().x, 
+			this->players[i].getPosition().y - 20.f);
+		this->followPlayerTexts[i].setString(std::to_string(this->players[i].getPlayerNr()) + "					" +
+			players[i].getHpAsString());
 	}
 
 	for (size_t i = 0; i < this->staticPlayerTexts.size(); i++) {
@@ -89,7 +99,7 @@ void Game::CombatUpdate() {
 
 void Game::Update() {
 
-	if (this->runGame) {
+	if (this->playersAlive > 0) {
 		//update timers
 		if (this->enemySpawnTimer < this->enemySpawnTimerMax) {
 			this->enemySpawnTimer++;
@@ -99,51 +109,53 @@ void Game::Update() {
 		if (this->enemySpawnTimer >= this->enemySpawnTimerMax) {
 			this->enemies.push_back(Enemy(&this->textures[enemy01], this->window->getSize(),
 				Vector2f(0.f, 0.f), Vector2f(-1.f, 0.f), Vector2f(0.1f, 0.1f),
-				0, rand() % 3 + 1, 3, 1));
+				0, rand() % 3 + 1, 2, 1));
 
 			this->enemySpawnTimer = 0; //reset timer
 		}
 
 		for (size_t i = 0; i < this->players.size(); i++) {
-			//bool enemyRemoved = false;
-			//bool bulletRemoved = false;
-			
-			//update players
-			this->players[i].Update(this->window->getSize());
+			if (this->players[i].isAlive()) {
+				//bool enemyRemoved = false;
+				//bool bulletRemoved = false;
 
-			//bullets update
-			for (size_t k = 0; k < this->players[i].getBullets().size() /* && !bulletRemoved*/; k++) {
-				this->players[i].getBullets()[k].Update();
+				//update players
+				this->players[i].Update(this->window->getSize());
 
-				//enemy collision check
-				for (size_t j = 0; j < enemies.size() /* && !enemyRemoved */; j++) {
+				//bullets update
+				for (size_t k = 0; k < this->players[i].getBullets().size() /* && !bulletRemoved*/; k++) {
+					this->players[i].getBullets()[k].Update();
 
-					if (this->players[i].getBullets()[k].getGlobalBounds().
-						intersects(this->enemies[j].getGlobalBounds())) {
+					//enemy collision check
+					for (size_t j = 0; j < enemies.size() /* && !enemyRemoved */; j++) {
 
+						if (this->players[i].getBullets()[k].getGlobalBounds().
+							intersects(this->enemies[j].getGlobalBounds())) {
+
+							this->players[i].getBullets().erase(this->players[i].getBullets().begin() + i);
+							if (this->enemies[j].getHP() > 0)
+								this->enemies[j].takeDamage(this->players[i].getDamage());
+							if (this->enemies[j].getHP() <= 0)
+								this->enemies.erase(this->enemies.begin() + j);
+							//enemyRemoved = true;
+							//bulletRemoved = true; 
+							return;
+						}
+
+						else if (this->enemies[i].getPosition().x <
+							0 - this->enemies[i].getGlobalBounds().width) {
+							this->enemies.erase(this->enemies.begin() + i);
+							//enemyRemoved = true; 
+							return;
+						}
+					}
+
+					//window bounds check
+					if (/*!bulletRemoved &&*/ this->players[i].getBullets()[k].getPosition().x > this->window->getSize().x) {
 						this->players[i].getBullets().erase(this->players[i].getBullets().begin() + i);
-						if (this->enemies[j].getHP() > 0)
-							this->enemies[j].takeDamage(this->players[i].getDamage());
-						if (this->enemies[j].getHP() <= 0)
-							this->enemies.erase(this->enemies.begin() + j);
-						//enemyRemoved = true;
 						//bulletRemoved = true; 
 						return;
 					}
-
-					else if (this->enemies[i].getPosition().x <
-						0 - this->enemies[i].getGlobalBounds().width) {
-						this->enemies.erase(this->enemies.begin() + i);
-						//enemyRemoved = true; 
-						return;
-					}
-				}
-
-				//window bounds check
-				if (/*!bulletRemoved &&*/ this->players[i].getBullets()[k].getPosition().x > this->window->getSize().x) {
-					this->players[i].getBullets().erase(this->players[i].getBullets().begin() + i);
-					//bulletRemoved = true; 
-					return;
 				}
 			}
 		}
@@ -154,16 +166,22 @@ void Game::Update() {
 			this->enemies[i].Update();
 
 			for (size_t k = 0; k < this->players.size(); k++) {
-				if (this->players[k].getGlobalBounds().intersects(this->enemies[i].getGlobalBounds())) {
+				if (this->players[k].isAlive()) {
+					if (this->players[k].getGlobalBounds().intersects(this->enemies[i].getGlobalBounds())) {
 
-					this->players[k].takeDamage(this->enemies[i].getDamage());
+						this->players[k].takeDamage(this->enemies[i].getDamage());
 
-					if (!this->players[k].isAlive()) {
-						this->players.erase(this->players.begin() + k);
+						/*if (!this->players[k].isAlive()) {
+							this->players.erase(this->players.begin() + k);
+							this->followPlayerTexts.erase(this->followPlayerTexts.begin() + k);
+						}*/
+						if (!this->players[k].isAlive()) {
+							this->playersAlive--;
+						}
+
+						this->enemies.erase(this->enemies.begin() + i);
+						return; //return!!!
 					}
-
-					this->enemies.erase(this->enemies.begin() + i);
-					return; //return!!!
 				}
 			}
 
@@ -179,18 +197,29 @@ void Game::Update() {
 
 void Game::DrawUI() {
 	for (size_t i = 0; i < this->followPlayerTexts.size(); i++) {
-		this->window->draw(this->followPlayerTexts[i]);
+		if (this->players[i].isAlive()) {
+			this->window->draw(this->followPlayerTexts[i]);
+		}
 	}
 
 	for (size_t i = 0; i < this->staticPlayerTexts.size(); i++) {
-		this->window->draw(this->staticPlayerTexts[i]);
+		if (this->players[i].isAlive()) {
+			this->window->draw(this->staticPlayerTexts[i]);
+		}
+	}
+
+	if (this->playersAlive <= 0) {
+		this->window->draw(this->gameOverText);
 	}
 }
 
 void Game::Draw() {
 	this->window->clear();
+
 	for (size_t i = 0; i < this->players.size(); i++) {
-		this->players[i].Draw(*this->window);
+		if (this->players[i].isAlive()) {
+			this->players[i].Draw(*this->window);
+		}
 	}
 
 	for (size_t i = 0; i < this->enemies.size(); i++) {

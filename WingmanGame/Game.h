@@ -7,17 +7,17 @@ class Game
 {
 private:
 	RenderWindow* window;
-	bool runGame;
 
 	//text
 	Font font;
 	std::vector<Text> followPlayerTexts;
 	std::vector<Text> staticPlayerTexts;
 	Text enemyText;
+	Text gameOverText;
 
 	//players
 	std::vector<Player> players;
-	int alivePlayers;
+	int playersAlive;
 
 	//enemies
 	std::vector<Enemy> enemies;
