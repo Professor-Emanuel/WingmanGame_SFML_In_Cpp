@@ -24,8 +24,8 @@ Game::Game(RenderWindow* window) {
 	this->textures[enemy01].loadFromFile("Textures/enemyFollow.png");
 	
 	//init player
-	this->players.push_back(Player(this->textures));
-	this->players.push_back(Player(this->textures,
+	this->players.add(Player(this->textures));
+	this->players.add(Player(this->textures,
 		Keyboard::Numpad8, Keyboard::Numpad5, Keyboard::Numpad4, Keyboard::Numpad6, Keyboard::Numpad1));
 
 	this->playersAlive = this->players.size();
@@ -128,7 +128,7 @@ void Game::Update(const float &dt) {
 
 		//spawn enemies
 		if (this->enemySpawnTimer >= this->enemySpawnTimerMax) {
-			this->enemies.push_back(Enemy(&this->textures[enemy01], this->window->getSize(),
+			this->enemies.add(Enemy(&this->textures[enemy01], this->window->getSize(),
 				Vector2f(0.f, 0.f), Vector2f(-1.f, 0.f), Vector2f(0.1f, 0.1f),
 				0, rand() % 3 + 1, 2, 1));
 
@@ -144,16 +144,16 @@ void Game::Update(const float &dt) {
 				this->players[i].Update(this->window->getSize(), dt);
 
 				//bullets update
-				for (size_t k = 0; k < this->players[i].getBullets().size() /* && !bulletRemoved*/; k++) {
-					this->players[i].getBullets()[k].Update(dt);
+				for (size_t k = 0; k < this->players[i].getBulletsSize(); k++) {
+					this->players[i].getBullet(k).Update(dt);
 
 					//enemy collision check
 					for (size_t j = 0; j < enemies.size() /* && !enemyRemoved */; j++) {
 
-						if (this->players[i].getBullets()[k].getGlobalBounds().
+						if (this->players[i].getBullet(k).getGlobalBounds().
 							intersects(this->enemies[j].getGlobalBounds())) {
 
-							this->players[i].getBullets().erase(this->players[i].getBullets().begin() + i);
+							this->players[i].removeBullet(k);
 
 							//enemy take damage
 							int damage = this->players[i].getDamage();
@@ -162,9 +162,9 @@ void Game::Update(const float &dt) {
 								this->enemies[j].takeDamage(damage);
 
 								//create text tag
-								this->textTags.push_back(TextTag(&this->font, "-" + 
+								this->textTags.add(TextTag(&this->font, "-" + 
 									std::to_string(damage),
-									Color::Cyan, Vector2f(this->enemies[j].getPosition().x + 20.f,
+									Color::Red, Vector2f(this->enemies[j].getPosition().x + 20.f,
 										this->enemies[j].getPosition().y - 20.f), 28, 20.f));
 							}
 
@@ -176,15 +176,15 @@ void Game::Update(const float &dt) {
 
 								if (this->players[i].gainExp(exp)) {
 									//create text tag
-									this->textTags.push_back(TextTag(&this->font, "LEVEL UP!",
+									this->textTags.add(TextTag(&this->font, "LEVEL UP!",
 										Color::Cyan, Vector2f(this->players[i].getPosition().x + 20.f,
 											this->players[i].getPosition().y - 20.f), 32, 30.f));
 								}
 							
-								this->enemies.erase(this->enemies.begin() + j);
+								this->enemies.remove(j);
 
 								//create text tag
-								this->textTags.push_back(TextTag(&this->font, "+" +
+								this->textTags.add(TextTag(&this->font, "+" +
 									std::to_string(exp) + " exp",
 									Color::Cyan, Vector2f(this->players[i].getPosition().x + 20.f,
 										this->players[i].getPosition().y - 20.f), 24, 25.f));
@@ -194,14 +194,14 @@ void Game::Update(const float &dt) {
 
 						else if (this->enemies[i].getPosition().x <
 							0 - this->enemies[i].getGlobalBounds().width) {
-							this->enemies.erase(this->enemies.begin() + i);
+							this->enemies.remove(i);
 							return;
 						}
 					}
 
 					//window bounds check
-					if (/*!bulletRemoved &&*/ this->players[i].getBullets()[k].getPosition().x > this->window->getSize().x) {
-						this->players[i].getBullets().erase(this->players[i].getBullets().begin() + i);
+					if (/*!bulletRemoved &&*/ this->players[i].getBullet(k).getPosition().x > this->window->getSize().x) {
+						this->players[i].removeBullet(k);
 						//bulletRemoved = true; 
 						return;
 					}
@@ -223,7 +223,7 @@ void Game::Update(const float &dt) {
 						this->players[k].takeDamage(damage);
 
 						//create text tag
-						this->textTags.push_back(TextTag(&this->font, "-" + std::to_string(damage),
+						this->textTags.add(TextTag(&this->font, "-" + std::to_string(damage),
 							Color::Red, Vector2f(this->players[k].getPosition().x + 20.f, 
 								this->players[k].getPosition().y - 20.f), 30, 20.f));
 
@@ -232,14 +232,14 @@ void Game::Update(const float &dt) {
 							this->playersAlive--;
 						}
 
-						this->enemies.erase(this->enemies.begin() + i);
+						this->enemies.remove(i);
 						return; //return!!!
 					}
 				}
 			}
 
 			if (this->enemies[i].getPosition().x < 0 - this->enemies[i].getGlobalBounds().width) {
-				this->enemies.erase(this->enemies.begin() + i);
+				this->enemies.remove(i);
 				return; //return!!!
 			}
 		}
@@ -249,7 +249,7 @@ void Game::Update(const float &dt) {
 			this->textTags[i].Update(dt);
 
 			if (this->textTags[i].getTimer() <= 0.f) {
-				this->textTags.erase(this->textTags.begin() + i);
+				this->textTags.remove(i);
 				break;
 			}
 		}

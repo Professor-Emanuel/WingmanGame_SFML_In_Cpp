@@ -20,14 +20,14 @@ private:
 	RectangleShape playerExpBar;
 
 	//texttags
-	std::vector<TextTag> textTags;
+	dArr<TextTag> textTags;
 
 	//players
-	std::vector<Player> players;
+	dArr<Player> players;
 	int playersAlive;
 
 	//enemies
-	std::vector<Enemy> enemies;
+	dArr<Enemy> enemies;
 	std::vector<Enemy> enemiesSaved;
 	float enemySpawnTimer;
 	float enemySpawnTimerMax;
