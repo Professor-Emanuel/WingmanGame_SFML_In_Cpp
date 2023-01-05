@@ -6,6 +6,7 @@
 #include <vector>
 #include <cstdlib>
 #include <math.h>
+#include "dArr.h"
 
 using namespace sf;
 

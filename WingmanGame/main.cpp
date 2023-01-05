@@ -8,6 +8,7 @@ int main() {
 
 	Game game(&window);
 
+
 	//game loop
 	while (window.isOpen()) {
 		Event event;
