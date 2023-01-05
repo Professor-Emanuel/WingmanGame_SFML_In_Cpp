@@ -156,15 +156,38 @@ void Game::Update(const float &dt) {
 							this->players[i].getBullets().erase(this->players[i].getBullets().begin() + i);
 
 							//enemy take damage
-							if (this->enemies[j].getHP() > 0)
-								this->enemies[j].takeDamage(this->players[i].getDamage());
+							int damage = this->players[i].getDamage();
+
+							if (this->enemies[j].getHP() > 0) {
+								this->enemies[j].takeDamage(damage);
+
+								//create text tag
+								this->textTags.push_back(TextTag(&this->font, "-" + 
+									std::to_string(damage),
+									Color::Cyan, Vector2f(this->enemies[j].getPosition().x + 20.f,
+										this->enemies[j].getPosition().y - 20.f), 28, 20.f));
+							}
 
 							//enemy dead
 							if (this->enemies[j].getHP() <= 0) {
-								this->players[i].gainExp(this->enemies[j].getHPMax() + 
-									(rand() % this->enemies[j].getHPMax() + 1));
+								//GAIN EXP
+								int exp = this->enemies[j].getHPMax() +
+									(rand() % this->enemies[j].getHPMax() + 1);
+
+								if (this->players[i].gainExp(exp)) {
+									//create text tag
+									this->textTags.push_back(TextTag(&this->font, "LEVEL UP!",
+										Color::Cyan, Vector2f(this->players[i].getPosition().x + 20.f,
+											this->players[i].getPosition().y - 20.f), 32, 30.f));
+								}
+							
 								this->enemies.erase(this->enemies.begin() + j);
-								
+
+								//create text tag
+								this->textTags.push_back(TextTag(&this->font, "+" +
+									std::to_string(exp) + " exp",
+									Color::Cyan, Vector2f(this->players[i].getPosition().x + 20.f,
+										this->players[i].getPosition().y - 20.f), 24, 25.f));
 							}
 							return;
 						}
@@ -172,7 +195,6 @@ void Game::Update(const float &dt) {
 						else if (this->enemies[i].getPosition().x <
 							0 - this->enemies[i].getGlobalBounds().width) {
 							this->enemies.erase(this->enemies.begin() + i);
-							//enemyRemoved = true; 
 							return;
 						}
 					}
@@ -192,16 +214,20 @@ void Game::Update(const float &dt) {
 
 			this->enemies[i].Update(dt);
 
+			//enemy player collision
 			for (size_t k = 0; k < this->players.size(); k++) {
 				if (this->players[k].isAlive()) {
 					if (this->players[k].getGlobalBounds().intersects(this->enemies[i].getGlobalBounds())) {
 
-						this->players[k].takeDamage(this->enemies[i].getDamage());
+						int damage = this->enemies[i].getDamage();
+						this->players[k].takeDamage(damage);
 
-						/*if (!this->players[k].isAlive()) {
-							this->players.erase(this->players.begin() + k);
-							this->followPlayerTexts.erase(this->followPlayerTexts.begin() + k);
-						}*/
+						//create text tag
+						this->textTags.push_back(TextTag(&this->font, "-" + std::to_string(damage),
+							Color::Red, Vector2f(this->players[k].getPosition().x + 20.f, 
+								this->players[k].getPosition().y - 20.f), 30, 20.f));
+
+						//player death
 						if (!this->players[k].isAlive()) {
 							this->playersAlive--;
 						}
@@ -215,6 +241,16 @@ void Game::Update(const float &dt) {
 			if (this->enemies[i].getPosition().x < 0 - this->enemies[i].getGlobalBounds().width) {
 				this->enemies.erase(this->enemies.begin() + i);
 				return; //return!!!
+			}
+		}
+
+		//update texttags
+		for (size_t i = 0; i < this->textTags.size(); i++) {
+			this->textTags[i].Update(dt);
+
+			if (this->textTags[i].getTimer() <= 0.f) {
+				this->textTags.erase(this->textTags.begin() + i);
+				break;
 			}
 		}
 	}
@@ -242,6 +278,11 @@ void Game::Draw() {
 			this->window->draw(this->followPlayerText);
 			this->window->draw(this->playerExpBar);
 		}
+	}
+
+	//draw texttags
+	for (size_t i = 0; i < this->textTags.size(); i++) {
+		this->textTags[i].Draw(*this->window);
 	}
 
 	//Game Over Text

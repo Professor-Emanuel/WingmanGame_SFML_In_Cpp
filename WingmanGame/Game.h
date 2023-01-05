@@ -16,7 +16,11 @@ private:
 	Text enemyText;
 	Text gameOverText;
 
+	//bars
 	RectangleShape playerExpBar;
+
+	//texttags
+	std::vector<TextTag> textTags;
 
 	//players
 	std::vector<Player> players;
