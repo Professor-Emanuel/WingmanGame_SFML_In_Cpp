@@ -36,6 +36,13 @@ private:
 	int level;
 	int exp;
 	int expNext;
+	int statPoints;
+
+	int cooling; //endurance
+	int plating; //vigor
+	int power; //strength
+	int wiring; //agility
+
 	int hp;
 	int hpMax;
 	int score;
@@ -68,8 +75,13 @@ public:
 	inline void takeDamage(int damage) { this->hp -= damage; }
 	inline bool isAlive() const { return this->hp > 0; }
 	inline const int& getPlayerNr() const { return this->playerNumber; }
+	inline const int& getLevel() const { return this->level; }
+	inline const int& getExp() const { return this->exp; }
+	inline const int& getExpNext() const { return this->expNext; }
+	inline void gainExp(int exp) { this->exp += exp; this->UpdateLeveling(); }
 
 	//functions
+	void UpdateLeveling();
 	void UpdateAccessories(const float& dt);
 	void Combat(const float& dt);
 	void Movement(const float& dt);

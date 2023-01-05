@@ -7,12 +7,17 @@ enum weapons { LASER = 0, MISSILE01, MISSILE02};
 
 Player::Player(std::vector<Texture> &textures,
 	int UP, int DOWN, int LEFT, int RIGHT, int SHOOT) 
-	:level(1), exp(0), expNext(100), hp(10),
+	:level(1), exp(0), hp(10),
 	hpMax(10), damage(1), damageMax(2),
 	score(0) 
 {
 	//dt
 	this->dtMultiplier = 62.5f;
+
+	//stats
+	this->expNext = 20 + static_cast<int>((50 / 3) * 
+		((pow(level, 3) - 6 * pow(level, 2)) + 17 * level - 12));
+
 	//update positions
 	this->playerCenter.x = this->sprite.getPosition().x + this->sprite.getGlobalBounds().width / 2;
 	this->playerCenter.y = this->sprite.getPosition().y + this->sprite.getGlobalBounds().height / 2;
@@ -65,6 +70,17 @@ Player::Player(std::vector<Texture> &textures,
 
 Player::~Player() {
 
+}
+
+void Player::UpdateLeveling() {
+	if (this->exp >= this->expNext) {
+		this->level++;
+		this->statPoints++;
+		this->exp -= this->expNext;
+		this->expNext = static_cast<int>((50 / 3) *
+			((pow(level, 3) - 6 * pow(level, 2)) + 17 * level - 12));
+	}
+	
 }
 
 void Player::UpdateAccessories(const float &dt) {

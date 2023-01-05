@@ -11,10 +11,12 @@ private:
 
 	//text
 	Font font;
-	std::vector<Text> followPlayerTexts;
-	std::vector<Text> staticPlayerTexts;
+	Text followPlayerText;
+	Text staticPlayerText;
 	Text enemyText;
 	Text gameOverText;
+
+	RectangleShape playerExpBar;
 
 	//players
 	std::vector<Player> players;
@@ -42,7 +44,8 @@ public:
 
 	//functions
 	void InitUI();
-	void UpdateUI();
+	void UpdateUIPlayer(int index);
+	void UpdateUIEnemy(int index);
 	//void CombatUpdate();
 	void Update(const float& dt);
 	void DrawUI();
