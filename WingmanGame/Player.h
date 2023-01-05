@@ -68,7 +68,7 @@ public:
 	inline const String getHpAsString() const { 
 		return std::to_string(this->hp) + "/" + std::to_string(this->hpMax);
 	}
-	inline const int getDamage() const { return rand() % this->damageMax + this->damage; }
+	int getDamage() const;
 	inline FloatRect getGlobalBounds() const { return this->sprite.getGlobalBounds(); }
 	inline const int& getHp() const { return this->hp; }
 	inline const int& getHpMax() const { return this->hpMax; }
@@ -78,10 +78,13 @@ public:
 	inline const int& getLevel() const { return this->level; }
 	inline const int& getExp() const { return this->exp; }
 	inline const int& getExpNext() const { return this->expNext; }
-	inline void gainExp(int exp) { this->exp += exp; this->UpdateLeveling(); }
+	inline bool gainExp(int exp) { 
+		this->exp += exp; 
+		return this->UpdateLeveling(); 
+	}
 
 	//functions
-	void UpdateLeveling();
+	bool UpdateLeveling();
 	void UpdateAccessories(const float& dt);
 	void Combat(const float& dt);
 	void Movement(const float& dt);

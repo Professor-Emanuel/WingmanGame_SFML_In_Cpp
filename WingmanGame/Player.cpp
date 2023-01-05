@@ -8,7 +8,9 @@ enum weapons { LASER = 0, MISSILE01, MISSILE02};
 Player::Player(std::vector<Texture> &textures,
 	int UP, int DOWN, int LEFT, int RIGHT, int SHOOT) 
 	:level(1), exp(0), hp(10),
-	hpMax(10), damage(1), damageMax(2),
+	hpMax(10), 
+	statPoints(0), cooling(0), plating(0), wiring(0), power(0),
+	damage(1), damageMax(2),
 	score(0) 
 {
 	//dt
@@ -72,15 +74,42 @@ Player::~Player() {
 
 }
 
-void Player::UpdateLeveling() {
+int Player::getDamage() const {
+
+	int damage = 0;
+
+	switch (this->currentWeapon) {
+	case LASER:
+		damage = rand() % this->damageMax + this->damage;
+		break;
+	case MISSILE01:
+		damage = rand() % this->damageMax + this->damage;
+		damage *= 2;
+		break;
+	case MISSILE02:
+		damage = rand() % this->damageMax + this->damage;
+		damage *= 4;
+		break;
+	default:
+		damage = rand() % this->damageMax + this->damage;
+		break;
+	}
+
+	return damage;
+}
+
+bool Player::UpdateLeveling() {
 	if (this->exp >= this->expNext) {
 		this->level++;
 		this->statPoints++;
 		this->exp -= this->expNext;
 		this->expNext = static_cast<int>((50 / 3) *
 			((pow(level, 3) - 6 * pow(level, 2)) + 17 * level - 12));
+
+		this->hp = hpMax;
+		return true;
 	}
-	
+	return false;
 }
 
 void Player::UpdateAccessories(const float &dt) {
