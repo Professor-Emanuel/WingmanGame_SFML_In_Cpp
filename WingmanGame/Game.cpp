@@ -36,11 +36,12 @@ Game::Game(RenderWindow* window) {
 	
 	//init enemies
 	Enemy e1(&this->textures[enemy01], this->window->getSize(),
-		Vector2f(0.f, 0.f), Vector2f(-1.f, 0.f), Vector2f(0.1f, 0.1f), 0, rand() % 3 + 1, 3, 1);
+		Vector2f(0.f, 0.f), Vector2f(-1.f, 0.f), Vector2f(0.1f, 0.1f), 0, rand() % 3 + 1, 3, 1, 
+		rand()%this->players.size());
 	
 	this->enemiesSaved.push_back(Enemy(e1));
 
-	this->enemySpawnTimerMax = 20;
+	this->enemySpawnTimerMax = 25.f;
 	this->enemySpawnTimer = this->enemySpawnTimerMax;
 	
 	this->InitUI();
@@ -130,7 +131,7 @@ void Game::Update(const float &dt) {
 		if (this->enemySpawnTimer >= this->enemySpawnTimerMax) {
 			this->enemies.add(Enemy(&this->textures[enemy01], this->window->getSize(),
 				Vector2f(0.f, 0.f), Vector2f(-1.f, 0.f), Vector2f(0.1f, 0.1f),
-				0, rand() % 3 + 1, 2, 1));
+				rand()%2, rand() % 3 + 1, 2, 1, rand()%this->players.size()));
 
 			this->enemySpawnTimer = 0; //reset timer
 		}
@@ -165,7 +166,8 @@ void Game::Update(const float &dt) {
 								this->textTags.add(TextTag(&this->font, "-" + 
 									std::to_string(damage),
 									Color::Red, Vector2f(this->enemies[j].getPosition().x + 20.f,
-										this->enemies[j].getPosition().y - 20.f), 28, 20.f));
+										this->enemies[j].getPosition().y - 20.f),
+									Vector2f(1.f, 0.f), 28, 20.f, true));
 							}
 
 							//enemy dead
@@ -174,20 +176,25 @@ void Game::Update(const float &dt) {
 								int exp = this->enemies[j].getHPMax() +
 									(rand() % this->enemies[j].getHPMax() + 1);
 
+								//level up tag
 								if (this->players[i].gainExp(exp)) {
 									//create text tag
 									this->textTags.add(TextTag(&this->font, "LEVEL UP!",
 										Color::Cyan, Vector2f(this->players[i].getPosition().x + 20.f,
-											this->players[i].getPosition().y - 20.f), 32, 30.f));
+											this->players[i].getPosition().y - 20.f), 
+										Vector2f(0.f, 1.f),
+										32, 30.f, true));
 								}
 							
 								this->enemies.remove(j);
 
+								//gain exp tag
 								//create text tag
 								this->textTags.add(TextTag(&this->font, "+" +
 									std::to_string(exp) + " exp",
 									Color::Cyan, Vector2f(this->players[i].getPosition().x + 20.f,
-										this->players[i].getPosition().y - 20.f), 24, 25.f));
+										this->players[i].getPosition().y - 20.f), Vector2f(0.f, 1.f),
+									24, 25.f, true));
 							}
 							return;
 						}
@@ -212,7 +219,8 @@ void Game::Update(const float &dt) {
 		//update enemies
 		for (size_t i = 0; i < this->enemies.size(); i++) {
 
-			this->enemies[i].Update(dt);
+			this->enemies[i].Update(dt, this->players[this->enemies[i].getPlayerFollowNr()].
+				getPosition());
 
 			//enemy player collision
 			for (size_t k = 0; k < this->players.size(); k++) {
@@ -225,7 +233,8 @@ void Game::Update(const float &dt) {
 						//create text tag
 						this->textTags.add(TextTag(&this->font, "-" + std::to_string(damage),
 							Color::Red, Vector2f(this->players[k].getPosition().x + 20.f, 
-								this->players[k].getPosition().y - 20.f), 30, 20.f));
+								this->players[k].getPosition().y - 20.f), Vector2f(-1.f, 0.f),
+							30, 20.f, true));
 
 						//player death
 						if (!this->players[k].isAlive()) {

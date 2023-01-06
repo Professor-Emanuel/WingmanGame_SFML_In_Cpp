@@ -23,9 +23,11 @@ private:
 	float speed;
 	float timerMax;
 	float timer;
+	bool accelarate;
+
 public:
-	TextTag(Font* font, std::string text, const Color color, Vector2f position, unsigned int size,
-	float timerMax);
+	TextTag(Font* font, std::string text, const Color color, Vector2f position, Vector2f direction,
+		unsigned int size, float timerMax, bool accelarate);
 	virtual ~TextTag();
 
 	//accessors
