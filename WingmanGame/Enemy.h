@@ -6,7 +6,7 @@ class Enemy {
 private:
 	float dtMultiplier;
 
-	Texture* texture;
+	dArr<Texture>* textures;
 	Sprite sprite;
 	Vector2u windowBounds;
 	Vector2f direction;
@@ -22,7 +22,7 @@ private:
 	int playerFollowNr;
 
 public:
-	Enemy(Texture* texture, Vector2u windowBounds, 
+	Enemy(dArr<Texture> &textures, Vector2u windowBounds, 
 		Vector2f position, Vector2f direction, Vector2f scale, int type,
 		int hpMax, int damageMax, int damageMin, int playerFollowNr);
 

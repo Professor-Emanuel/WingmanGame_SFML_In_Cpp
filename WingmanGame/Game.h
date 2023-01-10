@@ -34,6 +34,11 @@ private:
 	
 	//textures
 	std::vector<Texture> textures;
+	dArr<Texture> enemyTextures;
+	dArr<Texture> lWingTextures;
+	dArr<Texture> rWingTextures;
+	dArr<Texture> cPitTextures;
+	dArr<Texture> auraTextures;
 
 public:
 	Game(RenderWindow *window);
@@ -47,6 +52,7 @@ public:
 	//setters
 
 	//functions
+	void InitTextures();
 	void InitUI();
 	void UpdateUIPlayer(int index);
 	void UpdateUIEnemy(int index);

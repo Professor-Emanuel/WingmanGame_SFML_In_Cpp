@@ -1,6 +1,6 @@
 #include "Game.h"
 
-enum textures { player = 0, laser01, missile01, mainGun01, enemy01 };
+enum textures { player = 0, laser01, missile01, mainGun01 };
 
 Game::Game(RenderWindow* window) {
 	this->window = window;
@@ -10,23 +10,16 @@ Game::Game(RenderWindow* window) {
 	//init fonts
 	this->font.loadFromFile("Fonts/Dosis-Light.ttf");
 	
-
 	//init textures
-	this->textures.push_back(Texture());
-	this->textures[player].loadFromFile("Textures/ship.png");
-	this->textures.push_back(Texture());
-	this->textures[laser01].loadFromFile("Textures/Guns/rayTex01.png");
-	this->textures.push_back(Texture());
-	this->textures[missile01].loadFromFile("Textures/Guns/missileTex01.png");
-	this->textures.push_back(Texture());
-	this->textures[mainGun01].loadFromFile("Textures/Guns/gun01.png");
-	this->textures.push_back(Texture());
-	this->textures[enemy01].loadFromFile("Textures/enemyFollow.png");
+	this->InitTextures();
 	
 	//init player
-	this->players.add(Player(this->textures));
-	this->players.add(Player(this->textures,
-		Keyboard::Numpad8, Keyboard::Numpad5, Keyboard::Numpad4, Keyboard::Numpad6, Keyboard::Numpad1));
+	this->players.add(Player(this->textures, this->lWingTextures, this->rWingTextures, 
+		this->cPitTextures, this->auraTextures));
+	this->players.add(Player(this->textures, this->lWingTextures, this->rWingTextures,
+		this->cPitTextures, this->auraTextures,
+		Keyboard::Numpad8, Keyboard::Numpad5, 
+		Keyboard::Numpad4, Keyboard::Numpad6, Keyboard::Numpad1));
 
 	this->playersAlive = this->players.size();
 
@@ -35,7 +28,7 @@ Game::Game(RenderWindow* window) {
 		*/
 	
 	//init enemies
-	Enemy e1(&this->textures[enemy01], this->window->getSize(),
+	Enemy e1(this->enemyTextures, this->window->getSize(),
 		Vector2f(0.f, 0.f), Vector2f(-1.f, 0.f), Vector2f(0.1f, 0.1f), 0, rand() % 3 + 1, 3, 1, 
 		rand()%this->players.size());
 	
@@ -49,6 +42,81 @@ Game::Game(RenderWindow* window) {
 
 Game::~Game() {
 	
+}
+
+void Game::InitTextures() {
+	//init textures regular
+	this->textures.push_back(Texture());
+	this->textures[player].loadFromFile("Textures/ship.png");
+	this->textures.push_back(Texture());
+	this->textures[laser01].loadFromFile("Textures/Guns/rayTex01.png");
+	this->textures.push_back(Texture());
+	this->textures[missile01].loadFromFile("Textures/Guns/missileTex01.png");
+	this->textures.push_back(Texture());
+	this->textures[mainGun01].loadFromFile("Textures/Guns/gun01.png");
+
+	Texture temp;
+	temp.loadFromFile("Textures/enemyMoveLeft.png");
+	//this->textures.push_back(Texture());
+	this->enemyTextures.add(Texture(temp));
+	temp.loadFromFile("Textures/enemyFollow.png");
+	//this->textures.push_back(Texture());
+	this->enemyTextures.add(Texture(temp));
+
+	//init accessory textures
+	std::ifstream in;
+
+	in.open("Textures/Accessories/leftwings.txt");
+	std::string fileName = "";
+
+	if (in.is_open()) {
+		while (getline(in, fileName)) {
+			Texture temp;
+			temp.loadFromFile(fileName);
+			this->lWingTextures.add(Texture(temp));
+		}
+	}
+
+	in.close();
+
+	in.open("Textures/Accessories/rightwings.txt");
+	fileName = "";
+
+	if (in.is_open()) {
+		while (getline(in, fileName)) {
+			Texture temp;
+			temp.loadFromFile(fileName);
+			this->rWingTextures.add(Texture(temp));
+		}
+	}
+
+	in.close();
+
+	in.open("Textures/Accessories/cockpits.txt");
+	fileName = "";
+
+	if (in.is_open()) {
+		while (getline(in, fileName)) {
+			Texture temp;
+			temp.loadFromFile(fileName);
+			this->cPitTextures.add(Texture(temp));
+		}
+	}
+
+	in.close();
+
+	in.open("Textures/Accessories/auras.txt");
+	fileName = "";
+
+	if (in.is_open()) {
+		while (getline(in, fileName)) {
+			Texture temp;
+			temp.loadFromFile(fileName);
+			this->auraTextures.add(Texture(temp));
+		}
+	}
+
+	in.close();
 }
 
 void Game::InitUI() {
@@ -86,16 +154,16 @@ void Game::UpdateUIPlayer(int index) {
 	}
 	else //follow text
 	{
-		this->followPlayerText.setPosition(this->players[index].getPosition().x,
-			this->players[index].getPosition().y - 22.f);
+		this->followPlayerText.setPosition(this->players[index].getPosition().x - 25.f,
+			this->players[index].getPosition().y - 68.f);
 		this->followPlayerText.setString(std::to_string(this->players[index].getPlayerNr()) +
-			"					"
-			+ this->players[index].getHpAsString() + "\n\n\n\n\n\n"
+			"								"
+			+ this->players[index].getHpAsString() + "\n\n\n\n\n\n\n\n\n\n"
 			+ std::to_string(this->players[index].getLevel()));
 
 		// BARS
-		this->playerExpBar.setPosition(this->players[index].getPosition().x + 20.f,
-			this->players[index].getPosition().y + 89.f);
+		this->playerExpBar.setPosition(this->players[index].getPosition().x + 10.f,
+			this->players[index].getPosition().y + 115.f);
 
 		this->playerExpBar.setScale(
 			(static_cast<float>(this->players[index].getExp()) / this->players[index].getExpNext()), 
@@ -129,7 +197,7 @@ void Game::Update(const float &dt) {
 
 		//spawn enemies
 		if (this->enemySpawnTimer >= this->enemySpawnTimerMax) {
-			this->enemies.add(Enemy(&this->textures[enemy01], this->window->getSize(),
+			this->enemies.add(Enemy(this->enemyTextures, this->window->getSize(),
 				Vector2f(0.f, 0.f), Vector2f(-1.f, 0.f), Vector2f(0.1f, 0.1f),
 				rand()%2, rand() % 3 + 1, 2, 1, rand()%this->players.size()));
 
@@ -273,12 +341,7 @@ void Game::DrawUI() {
 void Game::Draw() {
 	this->window->clear();
 
-	for (size_t i = 0; i < this->enemies.size(); i++) {
-		this->enemies[i].Draw(*this->window);
-		this->UpdateUIEnemy(i);
-		this->window->draw(this->enemyText);
-	}
-
+	//draw player
 	for (size_t i = 0; i < this->players.size(); i++) {
 		if (this->players[i].isAlive()) {
 
@@ -287,6 +350,13 @@ void Game::Draw() {
 			this->window->draw(this->followPlayerText);
 			this->window->draw(this->playerExpBar);
 		}
+	}
+
+	//draw enemies
+	for (size_t i = 0; i < this->enemies.size(); i++) {
+		this->enemies[i].Draw(*this->window);
+		this->UpdateUIEnemy(i);
+		this->window->draw(this->enemyText);
 	}
 
 	//draw texttags
