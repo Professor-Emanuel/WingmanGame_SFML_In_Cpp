@@ -5,8 +5,10 @@ unsigned Player::players = 0;
 enum controls {UP = 0, DOWN, LEFT, RIGHT, SHOOT};
 enum weapons { LASER = 0, MISSILE01, MISSILE02};
 
-Player::Player(std::vector<Texture> &textures,
-	int UP, int DOWN, int LEFT, int RIGHT, int SHOOT) 
+Player::Player(std::vector<Texture>& textures,
+	dArr<Texture>& lWingTextures, dArr<Texture>& rWingTextures, dArr<Texture>& cPitTextures,
+	dArr<Texture>& auraTextures,
+	int UP, int DOWN, int LEFT, int RIGHT, int SHOOT)
 	:level(1), exp(0), hp(10),
 	hpMax(10), 
 	statPoints(0), cooling(0), plating(0), wiring(0), power(0),
@@ -25,8 +27,14 @@ Player::Player(std::vector<Texture> &textures,
 	this->playerCenter.y = this->sprite.getPosition().y + this->sprite.getGlobalBounds().height / 2;
 
 	//textures and sprites
+	this->lWingTextures = &lWingTextures;
+	this->rWingTextures = &rWingTextures;
+	this->cPitTextures = &cPitTextures;
+	this->auraTextures = &auraTextures;
+
 	this->sprite.setTexture(textures[0]);
-	this->sprite.setScale(0.13f, 0.13f);
+	this->sprite.setScale(0.09f, 0.09f);
+	this->sprite.setColor(Color(10, 10, 10, 255));
 
 	this->laserTexture = &textures[1];
 	this->missile01Texture = &textures[2];
@@ -38,6 +46,41 @@ Player::Player(std::vector<Texture> &textures,
 	this->mainGunSprite.rotate(90);
 
 	this->mainGunSprite.setPosition(this->playerCenter.x + 20.f, this->playerCenter.y);
+
+	//accessories
+	this->lWing.setTexture((*this->lWingTextures)[7]);
+	this->rWing.setTexture((*this->rWingTextures)[7]);
+	this->cPit.setTexture((*this->cPitTextures)[7]);
+	this->aura.setTexture((*this->auraTextures)[6]);
+
+	//init accessories
+	this->lWing.setOrigin(this->lWing.getGlobalBounds().width / 2,
+		this->lWing.getGlobalBounds().height / 2);
+
+	this->lWing.setPosition(this->playerCenter);
+	this->lWing.setRotation(90.f);
+	this->lWing.setScale(0.8f, 0.8f);
+
+	this->rWing.setOrigin(this->rWing.getGlobalBounds().width / 2,
+		this->rWing.getGlobalBounds().height / 2);
+
+	this->rWing.setPosition(this->playerCenter);
+	this->rWing.setRotation(90.f);
+	this->rWing.setScale(0.8f, 0.8f);
+
+	this->cPit.setOrigin(this->cPit.getGlobalBounds().width / 2,
+		this->cPit.getGlobalBounds().height / 2);
+
+	this->cPit.setPosition(this->playerCenter);
+	this->cPit.setRotation(90.f);
+	this->cPit.setScale(0.8f, 0.8f);
+
+	this->aura.setOrigin(this->aura.getGlobalBounds().width / 2,
+		this->aura.getGlobalBounds().height / 2);
+
+	this->aura.setPosition(this->playerCenter);
+	this->aura.setRotation(90.f);
+	this->aura.setScale(0.8f, 0.8f);
 
 	//timers
 	this->shootTimerMax = 25.f;
@@ -124,6 +167,18 @@ void Player::UpdateAccessories(const float &dt) {
 	if (this->mainGunSprite.getPosition().x > this->playerCenter.x + 20.f) {
 		this->mainGunSprite.setPosition(this->playerCenter.x + 20.f, this->playerCenter.y);
 	}
+
+	//letf wing
+	this->lWing.setPosition(playerCenter.x + -abs(this->currentVelocity.x),
+		playerCenter.y + -abs(this->currentVelocity.x/2));
+	//right wing
+	this->rWing.setPosition(playerCenter.x + -abs(this->currentVelocity.x),
+		playerCenter.y + abs(this->currentVelocity.x / 2));
+	//cockpit
+	this->cPit.setPosition(playerCenter.x + this->currentVelocity.x, playerCenter.y);
+	//aura
+	this->aura.setPosition(playerCenter);
+	this->aura.rotate(3.f * dt * this->dtMultiplier);
 }
 
 void Player::Movement(const float& dt) {
@@ -266,11 +321,18 @@ void Player::Update(Vector2u windowBounds, const float& dt) {
 }
 
 void Player::Draw(RenderTarget &target) {
+	
+	target.draw(this->aura);
+
 	for (size_t i = 0; i < this->bullets.size(); i++) {
 		this->bullets[i].Draw(target);
 	}
 
 	target.draw(this->mainGunSprite);
 	target.draw(this->sprite);
+
+	target.draw(this->cPit);
+	target.draw(this->lWing);
+	target.draw(this->rWing);
 	
 }

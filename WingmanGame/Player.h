@@ -21,12 +21,21 @@ private:
 	Texture* missile01Texture;
 	Texture* missile02Texture;
 
+	dArr<Texture>* lWingTextures;
+	dArr<Texture>* rWingTextures;
+	dArr<Texture>* cPitTextures;
+	dArr<Texture>* auraTextures;
+	Sprite lWing;
+	Sprite rWing;
+	Sprite cPit;
+	Sprite aura;
+
 	float shootTimer;
 	float damageTimer;
 	float shootTimerMax;
 	float damageTimerMax;
-	int controls[5];
 
+	int controls[5];
 	Vector2f currentVelocity;
 	float maxVelocity;
 	float acceleration;
@@ -59,7 +68,9 @@ private:
 public:
 	//Player(Texture *texture);
 	Player(std::vector<Texture> &textures,
-		int UP = 22, int DOWN =18, int LEFT = 0, int RIGHT = 3, int SHOOT = 57);
+	dArr<Texture>& lWingTextures, dArr<Texture>& rWingTextures, dArr<Texture>& cPitTextures, 
+		dArr<Texture>& auraTextures,
+		int UP = 22, int DOWN = 18, int LEFT = 0, int RIGHT = 3, int SHOOT = 57);
 	virtual ~Player();
 
 	//accessors
