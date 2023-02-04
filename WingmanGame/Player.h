@@ -7,6 +7,9 @@ class Player
 {
 private:
 	float dtMultiplier;
+	float keyTimeMax;
+	float keyTime;
+
 	unsigned playerNumber;
 
 	Vector2f playerCenter;
@@ -30,6 +33,11 @@ private:
 	Sprite cPit;
 	Sprite aura;
 
+	int lWingSelect;
+	int rWingSelect;
+	int cPitSelect;
+	int auraSelect;
+
 	float shootTimer;
 	float damageTimer;
 	float shootTimerMax;
@@ -41,6 +49,8 @@ private:
 	float acceleration;
 	Vector2f direction;
 	float stabilizerForce;
+	Vector2f movementDirection;
+	Vector2f normDir;
 
 	int level;
 	int exp;
@@ -85,7 +95,7 @@ public:
 	inline FloatRect getGlobalBounds() const { return this->sprite.getGlobalBounds(); }
 	inline const int& getHp() const { return this->hp; }
 	inline const int& getHpMax() const { return this->hpMax; }
-	inline void takeDamage(int damage) { this->hp -= damage; }
+	void takeDamage(int damage);
 	inline bool isAlive() const { return this->hp > 0; }
 	inline const int& getPlayerNr() const { return this->playerNumber; }
 	inline const int& getLevel() const { return this->level; }
@@ -96,8 +106,13 @@ public:
 		return this->UpdateLeveling(); 
 	}
 
+	inline void gainScore(int score) { this->score += score; }
+	inline const int getScore() const { return this->score; }
+	inline bool isDamageCooldown() { return this->damageTimer < this->damageTimerMax; }
+
 	//functions
 	bool UpdateLeveling();
+	void ChangeAccessories();
 	void UpdateAccessories(const float& dt);
 	void Combat(const float& dt);
 	void Movement(const float& dt);
@@ -107,5 +122,17 @@ public:
 
 	//statics
 	static unsigned players;
+
+	//regular functions
+	float vectorLength(Vector2f v) {
+		return sqrt(pow(v.x, 2) + pow(v.y, 2));
+	}
+
+	Vector2f normalize(Vector2f v, float length) {
+		if (length == 0)
+			return Vector2f(0.f, 0.f);
+		else 
+			return v / length;
+	}
 };
 

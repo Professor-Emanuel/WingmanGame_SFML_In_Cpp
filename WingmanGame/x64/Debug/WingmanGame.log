@@ -1,5 +1,43 @@
-﻿  Game.cpp
-D:\OneDrive - e-uvt.ro\Informatica\Programing\Cpp_Games\WingmanGame_SFML_In_Cpp\WingmanGame\Enemy.h(46,14): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+﻿  Enemy.cpp
+D:\OneDrive - e-uvt.ro\Informatica\Programing\Cpp_Games\WingmanGame_SFML_In_Cpp\WingmanGame\Enemy.h(49,14): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+D:\OneDrive - e-uvt.ro\Informatica\Programing\Cpp_Games\WingmanGame_SFML_In_Cpp\WingmanGame\Enemy.cpp(24,39): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
+          with
+          [
+              T=unsigned int
+          ]
+D:\OneDrive - e-uvt.ro\Informatica\Programing\Cpp_Games\WingmanGame_SFML_In_Cpp\WingmanGame\Enemy.cpp(86,31): warning C4305: '=': truncation from 'double' to 'T'
+          with
+          [
+              T=float
+          ]
+D:\OneDrive - e-uvt.ro\Informatica\Programing\Cpp_Games\WingmanGame_SFML_In_Cpp\WingmanGame\Enemy.cpp(89,32): warning C4305: '=': truncation from 'double' to 'T'
+          with
+          [
+              T=float
+          ]
+D:\OneDrive - e-uvt.ro\Informatica\Programing\Cpp_Games\WingmanGame_SFML_In_Cpp\WingmanGame\Enemy.cpp(93,32): warning C4305: '=': truncation from 'double' to 'T'
+          with
+          [
+              T=float
+          ]
+D:\OneDrive - e-uvt.ro\Informatica\Programing\Cpp_Games\WingmanGame_SFML_In_Cpp\WingmanGame\Enemy.cpp(96,102): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+D:\OneDrive - e-uvt.ro\Informatica\Programing\Cpp_Games\WingmanGame_SFML_In_Cpp\WingmanGame\dArr.h(60,25): warning C4018: '>=': signed/unsigned mismatch
+D:\OneDrive - e-uvt.ro\Informatica\Programing\Cpp_Games\WingmanGame_SFML_In_Cpp\WingmanGame\dArr.h(59,35): message : while compiling class template member function 'T &dArr<T>::operator [](int)'
+          with
+          [
+              T=sf::Texture
+          ]
+D:\OneDrive - e-uvt.ro\Informatica\Programing\Cpp_Games\WingmanGame_SFML_In_Cpp\WingmanGame\Enemy.cpp(12,25): message : see reference to function template instantiation 'T &dArr<T>::operator [](int)' being compiled
+          with
+          [
+              T=sf::Texture
+          ]
+D:\OneDrive - e-uvt.ro\Informatica\Programing\Cpp_Games\WingmanGame_SFML_In_Cpp\WingmanGame\Enemy.cpp(10,28): message : see reference to class template instantiation 'dArr<sf::Texture>' being compiled
+  Game.cpp
+D:\OneDrive - e-uvt.ro\Informatica\Programing\Cpp_Games\WingmanGame_SFML_In_Cpp\WingmanGame\Player.h(128,14): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+D:\OneDrive - e-uvt.ro\Informatica\Programing\Cpp_Games\WingmanGame_SFML_In_Cpp\WingmanGame\Enemy.h(49,14): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+D:\OneDrive - e-uvt.ro\Informatica\Programing\Cpp_Games\WingmanGame_SFML_In_Cpp\WingmanGame\Game.cpp(31,10): error C2661: 'Enemy::Enemy': no overloaded function takes 10 arguments
+D:\OneDrive - e-uvt.ro\Informatica\Programing\Cpp_Games\WingmanGame_SFML_In_Cpp\WingmanGame\Game.cpp(31,10): message : while trying to match the argument list '(dArr<sf::Texture>, sf::Vector2u, sf::Vector2f, sf::Vector2f, sf::Vector2f, int, int, int, int, unsigned int)'
 D:\OneDrive - e-uvt.ro\Informatica\Programing\Cpp_Games\WingmanGame_SFML_In_Cpp\WingmanGame\Game.cpp(138,58): warning C4244: 'argument': conversion from 'float' to 'sf::Uint8', possible loss of data
 D:\OneDrive - e-uvt.ro\Informatica\Programing\Cpp_Games\WingmanGame_SFML_In_Cpp\WingmanGame\Game.cpp(138,51): warning C4244: 'argument': conversion from 'float' to 'sf::Uint8', possible loss of data
 D:\OneDrive - e-uvt.ro\Informatica\Programing\Cpp_Games\WingmanGame_SFML_In_Cpp\WingmanGame\Game.cpp(138,45): warning C4244: 'argument': conversion from 'float' to 'sf::Uint8', possible loss of data
@@ -10,73 +48,64 @@ D:\OneDrive - e-uvt.ro\Informatica\Programing\Cpp_Games\WingmanGame_SFML_In_Cpp\
               T=unsigned int
           ]
 D:\OneDrive - e-uvt.ro\Informatica\Programing\Cpp_Games\WingmanGame_SFML_In_Cpp\WingmanGame\Game.cpp(152,12): warning C4018: '>=': signed/unsigned mismatch
-D:\OneDrive - e-uvt.ro\Informatica\Programing\Cpp_Games\WingmanGame_SFML_In_Cpp\WingmanGame\Game.cpp(208,7): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
-D:\OneDrive - e-uvt.ro\Informatica\Programing\Cpp_Games\WingmanGame_SFML_In_Cpp\WingmanGame\Game.cpp(213,20): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
-D:\OneDrive - e-uvt.ro\Informatica\Programing\Cpp_Games\WingmanGame_SFML_In_Cpp\WingmanGame\Game.cpp(216,43): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
-D:\OneDrive - e-uvt.ro\Informatica\Programing\Cpp_Games\WingmanGame_SFML_In_Cpp\WingmanGame\Game.cpp(217,21): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
-D:\OneDrive - e-uvt.ro\Informatica\Programing\Cpp_Games\WingmanGame_SFML_In_Cpp\WingmanGame\Game.cpp(217,34): warning C4267: 'argument': conversion from 'size_t' to 'unsigned int', possible loss of data
-D:\OneDrive - e-uvt.ro\Informatica\Programing\Cpp_Games\WingmanGame_SFML_In_Cpp\WingmanGame\Game.cpp(222,10): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
-D:\OneDrive - e-uvt.ro\Informatica\Programing\Cpp_Games\WingmanGame_SFML_In_Cpp\WingmanGame\Game.cpp(222,10): warning C4267: 'argument': conversion from 'size_t' to 'unsigned int', possible loss of data
-D:\OneDrive - e-uvt.ro\Informatica\Programing\Cpp_Games\WingmanGame_SFML_In_Cpp\WingmanGame\Game.cpp(223,1): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
-D:\OneDrive - e-uvt.ro\Informatica\Programing\Cpp_Games\WingmanGame_SFML_In_Cpp\WingmanGame\Game.cpp(225,23): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
-D:\OneDrive - e-uvt.ro\Informatica\Programing\Cpp_Games\WingmanGame_SFML_In_Cpp\WingmanGame\Game.cpp(225,39): warning C4267: 'argument': conversion from 'size_t' to 'unsigned int', possible loss of data
-D:\OneDrive - e-uvt.ro\Informatica\Programing\Cpp_Games\WingmanGame_SFML_In_Cpp\WingmanGame\Game.cpp(228,36): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
-D:\OneDrive - e-uvt.ro\Informatica\Programing\Cpp_Games\WingmanGame_SFML_In_Cpp\WingmanGame\Game.cpp(230,11): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
-D:\OneDrive - e-uvt.ro\Informatica\Programing\Cpp_Games\WingmanGame_SFML_In_Cpp\WingmanGame\Game.cpp(231,24): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
-D:\OneDrive - e-uvt.ro\Informatica\Programing\Cpp_Games\WingmanGame_SFML_In_Cpp\WingmanGame\Game.cpp(236,46): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
-D:\OneDrive - e-uvt.ro\Informatica\Programing\Cpp_Games\WingmanGame_SFML_In_Cpp\WingmanGame\Game.cpp(237,26): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
-D:\OneDrive - e-uvt.ro\Informatica\Programing\Cpp_Games\WingmanGame_SFML_In_Cpp\WingmanGame\Game.cpp(242,11): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
-D:\OneDrive - e-uvt.ro\Informatica\Programing\Cpp_Games\WingmanGame_SFML_In_Cpp\WingmanGame\Game.cpp(244,34): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
-D:\OneDrive - e-uvt.ro\Informatica\Programing\Cpp_Games\WingmanGame_SFML_In_Cpp\WingmanGame\Game.cpp(245,35): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
-D:\OneDrive - e-uvt.ro\Informatica\Programing\Cpp_Games\WingmanGame_SFML_In_Cpp\WingmanGame\Game.cpp(248,12): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
-D:\OneDrive - e-uvt.ro\Informatica\Programing\Cpp_Games\WingmanGame_SFML_In_Cpp\WingmanGame\Game.cpp(251,48): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
-D:\OneDrive - e-uvt.ro\Informatica\Programing\Cpp_Games\WingmanGame_SFML_In_Cpp\WingmanGame\Game.cpp(252,27): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
-D:\OneDrive - e-uvt.ro\Informatica\Programing\Cpp_Games\WingmanGame_SFML_In_Cpp\WingmanGame\Game.cpp(257,31): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
-D:\OneDrive - e-uvt.ro\Informatica\Programing\Cpp_Games\WingmanGame_SFML_In_Cpp\WingmanGame\Game.cpp(263,47): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
-D:\OneDrive - e-uvt.ro\Informatica\Programing\Cpp_Games\WingmanGame_SFML_In_Cpp\WingmanGame\Game.cpp(264,26): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
-D:\OneDrive - e-uvt.ro\Informatica\Programing\Cpp_Games\WingmanGame_SFML_In_Cpp\WingmanGame\Game.cpp(270,15): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
-D:\OneDrive - e-uvt.ro\Informatica\Programing\Cpp_Games\WingmanGame_SFML_In_Cpp\WingmanGame\Game.cpp(271,1): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
-D:\OneDrive - e-uvt.ro\Informatica\Programing\Cpp_Games\WingmanGame_SFML_In_Cpp\WingmanGame\Game.cpp(272,30): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
-D:\OneDrive - e-uvt.ro\Informatica\Programing\Cpp_Games\WingmanGame_SFML_In_Cpp\WingmanGame\Game.cpp(278,9): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
-D:\OneDrive - e-uvt.ro\Informatica\Programing\Cpp_Games\WingmanGame_SFML_In_Cpp\WingmanGame\Game.cpp(278,9): warning C4267: 'argument': conversion from 'size_t' to 'unsigned int', possible loss of data
-D:\OneDrive - e-uvt.ro\Informatica\Programing\Cpp_Games\WingmanGame_SFML_In_Cpp\WingmanGame\Game.cpp(279,22): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
-D:\OneDrive - e-uvt.ro\Informatica\Programing\Cpp_Games\WingmanGame_SFML_In_Cpp\WingmanGame\Game.cpp(279,38): warning C4267: 'argument': conversion from 'size_t' to 'unsigned int', possible loss of data
-D:\OneDrive - e-uvt.ro\Informatica\Programing\Cpp_Games\WingmanGame_SFML_In_Cpp\WingmanGame\Game.cpp(290,19): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
-D:\OneDrive - e-uvt.ro\Informatica\Programing\Cpp_Games\WingmanGame_SFML_In_Cpp\WingmanGame\Game.cpp(290,61): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
-D:\OneDrive - e-uvt.ro\Informatica\Programing\Cpp_Games\WingmanGame_SFML_In_Cpp\WingmanGame\Game.cpp(295,8): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
-D:\OneDrive - e-uvt.ro\Informatica\Programing\Cpp_Games\WingmanGame_SFML_In_Cpp\WingmanGame\Game.cpp(296,9): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
-D:\OneDrive - e-uvt.ro\Informatica\Programing\Cpp_Games\WingmanGame_SFML_In_Cpp\WingmanGame\Game.cpp(298,35): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
-D:\OneDrive - e-uvt.ro\Informatica\Programing\Cpp_Games\WingmanGame_SFML_In_Cpp\WingmanGame\Game.cpp(299,22): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
-D:\OneDrive - e-uvt.ro\Informatica\Programing\Cpp_Games\WingmanGame_SFML_In_Cpp\WingmanGame\Game.cpp(303,44): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
-D:\OneDrive - e-uvt.ro\Informatica\Programing\Cpp_Games\WingmanGame_SFML_In_Cpp\WingmanGame\Game.cpp(304,24): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
-D:\OneDrive - e-uvt.ro\Informatica\Programing\Cpp_Games\WingmanGame_SFML_In_Cpp\WingmanGame\Game.cpp(308,10): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
-D:\OneDrive - e-uvt.ro\Informatica\Programing\Cpp_Games\WingmanGame_SFML_In_Cpp\WingmanGame\Game.cpp(312,29): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
-D:\OneDrive - e-uvt.ro\Informatica\Programing\Cpp_Games\WingmanGame_SFML_In_Cpp\WingmanGame\Game.cpp(318,7): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
-D:\OneDrive - e-uvt.ro\Informatica\Programing\Cpp_Games\WingmanGame_SFML_In_Cpp\WingmanGame\Game.cpp(319,27): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
-D:\OneDrive - e-uvt.ro\Informatica\Programing\Cpp_Games\WingmanGame_SFML_In_Cpp\WingmanGame\Game.cpp(326,20): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
-D:\OneDrive - e-uvt.ro\Informatica\Programing\Cpp_Games\WingmanGame_SFML_In_Cpp\WingmanGame\Game.cpp(328,7): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
-D:\OneDrive - e-uvt.ro\Informatica\Programing\Cpp_Games\WingmanGame_SFML_In_Cpp\WingmanGame\Game.cpp(329,28): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
-D:\OneDrive - e-uvt.ro\Informatica\Programing\Cpp_Games\WingmanGame_SFML_In_Cpp\WingmanGame\Game.cpp(346,6): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
-D:\OneDrive - e-uvt.ro\Informatica\Programing\Cpp_Games\WingmanGame_SFML_In_Cpp\WingmanGame\Game.cpp(348,19): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
-D:\OneDrive - e-uvt.ro\Informatica\Programing\Cpp_Games\WingmanGame_SFML_In_Cpp\WingmanGame\Game.cpp(349,26): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
-D:\OneDrive - e-uvt.ro\Informatica\Programing\Cpp_Games\WingmanGame_SFML_In_Cpp\WingmanGame\Game.cpp(357,18): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
-D:\OneDrive - e-uvt.ro\Informatica\Programing\Cpp_Games\WingmanGame_SFML_In_Cpp\WingmanGame\Game.cpp(358,24): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
-D:\OneDrive - e-uvt.ro\Informatica\Programing\Cpp_Games\WingmanGame_SFML_In_Cpp\WingmanGame\Game.cpp(364,19): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
-D:\OneDrive - e-uvt.ro\Informatica\Programing\Cpp_Games\WingmanGame_SFML_In_Cpp\WingmanGame\dArr.h(60,25): warning C4018: '>=': signed/unsigned mismatch
-D:\OneDrive - e-uvt.ro\Informatica\Programing\Cpp_Games\WingmanGame_SFML_In_Cpp\WingmanGame\dArr.h(59,35): message : while compiling class template member function 'T &dArr<T>::operator [](int)'
-          with
-          [
-              T=TextTag
-          ]
-D:\OneDrive - e-uvt.ro\Informatica\Programing\Cpp_Games\WingmanGame_SFML_In_Cpp\WingmanGame\Game.cpp(326,28): message : see reference to function template instantiation 'T &dArr<T>::operator [](int)' being compiled
-          with
-          [
-              T=TextTag
-          ]
-D:\OneDrive - e-uvt.ro\Informatica\Programing\Cpp_Games\WingmanGame_SFML_In_Cpp\WingmanGame\Game.h(23,16): message : see reference to class template instantiation 'dArr<TextTag>' being compiled
-D:\OneDrive - e-uvt.ro\Informatica\Programing\Cpp_Games\WingmanGame_SFML_In_Cpp\WingmanGame\dArr.h(120,25): warning C4018: '>=': signed/unsigned mismatch
-D:\OneDrive - e-uvt.ro\Informatica\Programing\Cpp_Games\WingmanGame_SFML_In_Cpp\WingmanGame\dArr.h(119,33): message : while compiling class template member function 'void dArr<TextTag>::remove(int)'
-D:\OneDrive - e-uvt.ro\Informatica\Programing\Cpp_Games\WingmanGame_SFML_In_Cpp\WingmanGame\Game.cpp(329,26): message : see reference to function template instantiation 'void dArr<TextTag>::remove(int)' being compiled
-D:\OneDrive - e-uvt.ro\Informatica\Programing\Cpp_Games\WingmanGame_SFML_In_Cpp\WingmanGame\Player.h(90): warning C4172: returning address of local variable or temporary
-D:\OneDrive - e-uvt.ro\Informatica\Programing\Cpp_Games\WingmanGame_SFML_In_Cpp\WingmanGame\Bullet.h(23): warning C4172: returning address of local variable or temporary
-  WingmanGame.vcxproj -> D:\OneDrive - e-uvt.ro\Informatica\Programing\Cpp_Games\WingmanGame_SFML_In_Cpp\x64\Debug\WingmanGame.exe
+D:\OneDrive - e-uvt.ro\Informatica\Programing\Cpp_Games\WingmanGame_SFML_In_Cpp\WingmanGame\Game.cpp(201,27): error C2440: '<function-style-cast>': cannot convert from 'initializer list' to 'Enemy'
+D:\OneDrive - e-uvt.ro\Informatica\Programing\Cpp_Games\WingmanGame_SFML_In_Cpp\WingmanGame\Game.cpp(201,27): message : No constructor could take the source type, or constructor overload resolution was ambiguous
+D:\OneDrive - e-uvt.ro\Informatica\Programing\Cpp_Games\WingmanGame_SFML_In_Cpp\WingmanGame\Game.cpp(209,7): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+D:\OneDrive - e-uvt.ro\Informatica\Programing\Cpp_Games\WingmanGame_SFML_In_Cpp\WingmanGame\Game.cpp(214,20): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+D:\OneDrive - e-uvt.ro\Informatica\Programing\Cpp_Games\WingmanGame_SFML_In_Cpp\WingmanGame\Game.cpp(217,43): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+D:\OneDrive - e-uvt.ro\Informatica\Programing\Cpp_Games\WingmanGame_SFML_In_Cpp\WingmanGame\Game.cpp(218,21): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+D:\OneDrive - e-uvt.ro\Informatica\Programing\Cpp_Games\WingmanGame_SFML_In_Cpp\WingmanGame\Game.cpp(218,34): warning C4267: 'argument': conversion from 'size_t' to 'unsigned int', possible loss of data
+D:\OneDrive - e-uvt.ro\Informatica\Programing\Cpp_Games\WingmanGame_SFML_In_Cpp\WingmanGame\Game.cpp(223,10): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+D:\OneDrive - e-uvt.ro\Informatica\Programing\Cpp_Games\WingmanGame_SFML_In_Cpp\WingmanGame\Game.cpp(223,10): warning C4267: 'argument': conversion from 'size_t' to 'unsigned int', possible loss of data
+D:\OneDrive - e-uvt.ro\Informatica\Programing\Cpp_Games\WingmanGame_SFML_In_Cpp\WingmanGame\Game.cpp(224,1): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+D:\OneDrive - e-uvt.ro\Informatica\Programing\Cpp_Games\WingmanGame_SFML_In_Cpp\WingmanGame\Game.cpp(226,23): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+D:\OneDrive - e-uvt.ro\Informatica\Programing\Cpp_Games\WingmanGame_SFML_In_Cpp\WingmanGame\Game.cpp(226,39): warning C4267: 'argument': conversion from 'size_t' to 'unsigned int', possible loss of data
+D:\OneDrive - e-uvt.ro\Informatica\Programing\Cpp_Games\WingmanGame_SFML_In_Cpp\WingmanGame\Game.cpp(229,36): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+D:\OneDrive - e-uvt.ro\Informatica\Programing\Cpp_Games\WingmanGame_SFML_In_Cpp\WingmanGame\Game.cpp(231,11): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+D:\OneDrive - e-uvt.ro\Informatica\Programing\Cpp_Games\WingmanGame_SFML_In_Cpp\WingmanGame\Game.cpp(232,24): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+D:\OneDrive - e-uvt.ro\Informatica\Programing\Cpp_Games\WingmanGame_SFML_In_Cpp\WingmanGame\Game.cpp(237,46): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+D:\OneDrive - e-uvt.ro\Informatica\Programing\Cpp_Games\WingmanGame_SFML_In_Cpp\WingmanGame\Game.cpp(238,26): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+D:\OneDrive - e-uvt.ro\Informatica\Programing\Cpp_Games\WingmanGame_SFML_In_Cpp\WingmanGame\Game.cpp(243,11): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+D:\OneDrive - e-uvt.ro\Informatica\Programing\Cpp_Games\WingmanGame_SFML_In_Cpp\WingmanGame\Game.cpp(245,34): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+D:\OneDrive - e-uvt.ro\Informatica\Programing\Cpp_Games\WingmanGame_SFML_In_Cpp\WingmanGame\Game.cpp(246,35): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+D:\OneDrive - e-uvt.ro\Informatica\Programing\Cpp_Games\WingmanGame_SFML_In_Cpp\WingmanGame\Game.cpp(249,36): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+D:\OneDrive - e-uvt.ro\Informatica\Programing\Cpp_Games\WingmanGame_SFML_In_Cpp\WingmanGame\Game.cpp(250,24): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+D:\OneDrive - e-uvt.ro\Informatica\Programing\Cpp_Games\WingmanGame_SFML_In_Cpp\WingmanGame\Game.cpp(253,12): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+D:\OneDrive - e-uvt.ro\Informatica\Programing\Cpp_Games\WingmanGame_SFML_In_Cpp\WingmanGame\Game.cpp(256,48): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+D:\OneDrive - e-uvt.ro\Informatica\Programing\Cpp_Games\WingmanGame_SFML_In_Cpp\WingmanGame\Game.cpp(257,27): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+D:\OneDrive - e-uvt.ro\Informatica\Programing\Cpp_Games\WingmanGame_SFML_In_Cpp\WingmanGame\Game.cpp(262,31): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+D:\OneDrive - e-uvt.ro\Informatica\Programing\Cpp_Games\WingmanGame_SFML_In_Cpp\WingmanGame\Game.cpp(268,47): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+D:\OneDrive - e-uvt.ro\Informatica\Programing\Cpp_Games\WingmanGame_SFML_In_Cpp\WingmanGame\Game.cpp(269,26): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+D:\OneDrive - e-uvt.ro\Informatica\Programing\Cpp_Games\WingmanGame_SFML_In_Cpp\WingmanGame\Game.cpp(275,15): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+D:\OneDrive - e-uvt.ro\Informatica\Programing\Cpp_Games\WingmanGame_SFML_In_Cpp\WingmanGame\Game.cpp(276,1): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+D:\OneDrive - e-uvt.ro\Informatica\Programing\Cpp_Games\WingmanGame_SFML_In_Cpp\WingmanGame\Game.cpp(277,30): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+D:\OneDrive - e-uvt.ro\Informatica\Programing\Cpp_Games\WingmanGame_SFML_In_Cpp\WingmanGame\Game.cpp(283,9): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+D:\OneDrive - e-uvt.ro\Informatica\Programing\Cpp_Games\WingmanGame_SFML_In_Cpp\WingmanGame\Game.cpp(283,9): warning C4267: 'argument': conversion from 'size_t' to 'unsigned int', possible loss of data
+D:\OneDrive - e-uvt.ro\Informatica\Programing\Cpp_Games\WingmanGame_SFML_In_Cpp\WingmanGame\Game.cpp(284,22): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+D:\OneDrive - e-uvt.ro\Informatica\Programing\Cpp_Games\WingmanGame_SFML_In_Cpp\WingmanGame\Game.cpp(284,38): warning C4267: 'argument': conversion from 'size_t' to 'unsigned int', possible loss of data
+D:\OneDrive - e-uvt.ro\Informatica\Programing\Cpp_Games\WingmanGame_SFML_In_Cpp\WingmanGame\Game.cpp(295,19): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+D:\OneDrive - e-uvt.ro\Informatica\Programing\Cpp_Games\WingmanGame_SFML_In_Cpp\WingmanGame\Game.cpp(295,61): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+D:\OneDrive - e-uvt.ro\Informatica\Programing\Cpp_Games\WingmanGame_SFML_In_Cpp\WingmanGame\Game.cpp(300,8): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+D:\OneDrive - e-uvt.ro\Informatica\Programing\Cpp_Games\WingmanGame_SFML_In_Cpp\WingmanGame\Game.cpp(301,9): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+D:\OneDrive - e-uvt.ro\Informatica\Programing\Cpp_Games\WingmanGame_SFML_In_Cpp\WingmanGame\Game.cpp(302,1): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+D:\OneDrive - e-uvt.ro\Informatica\Programing\Cpp_Games\WingmanGame_SFML_In_Cpp\WingmanGame\Game.cpp(303,1): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+D:\OneDrive - e-uvt.ro\Informatica\Programing\Cpp_Games\WingmanGame_SFML_In_Cpp\WingmanGame\Game.cpp(305,35): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+D:\OneDrive - e-uvt.ro\Informatica\Programing\Cpp_Games\WingmanGame_SFML_In_Cpp\WingmanGame\Game.cpp(306,22): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+D:\OneDrive - e-uvt.ro\Informatica\Programing\Cpp_Games\WingmanGame_SFML_In_Cpp\WingmanGame\Game.cpp(310,44): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+D:\OneDrive - e-uvt.ro\Informatica\Programing\Cpp_Games\WingmanGame_SFML_In_Cpp\WingmanGame\Game.cpp(311,24): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+D:\OneDrive - e-uvt.ro\Informatica\Programing\Cpp_Games\WingmanGame_SFML_In_Cpp\WingmanGame\Game.cpp(316,10): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+D:\OneDrive - e-uvt.ro\Informatica\Programing\Cpp_Games\WingmanGame_SFML_In_Cpp\WingmanGame\Game.cpp(326,7): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+D:\OneDrive - e-uvt.ro\Informatica\Programing\Cpp_Games\WingmanGame_SFML_In_Cpp\WingmanGame\Game.cpp(327,27): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+D:\OneDrive - e-uvt.ro\Informatica\Programing\Cpp_Games\WingmanGame_SFML_In_Cpp\WingmanGame\Game.cpp(334,20): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+D:\OneDrive - e-uvt.ro\Informatica\Programing\Cpp_Games\WingmanGame_SFML_In_Cpp\WingmanGame\Game.cpp(336,7): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+D:\OneDrive - e-uvt.ro\Informatica\Programing\Cpp_Games\WingmanGame_SFML_In_Cpp\WingmanGame\Game.cpp(337,28): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+D:\OneDrive - e-uvt.ro\Informatica\Programing\Cpp_Games\WingmanGame_SFML_In_Cpp\WingmanGame\Game.cpp(354,6): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+D:\OneDrive - e-uvt.ro\Informatica\Programing\Cpp_Games\WingmanGame_SFML_In_Cpp\WingmanGame\Game.cpp(356,19): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+D:\OneDrive - e-uvt.ro\Informatica\Programing\Cpp_Games\WingmanGame_SFML_In_Cpp\WingmanGame\Game.cpp(357,26): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+D:\OneDrive - e-uvt.ro\Informatica\Programing\Cpp_Games\WingmanGame_SFML_In_Cpp\WingmanGame\Game.cpp(365,18): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+D:\OneDrive - e-uvt.ro\Informatica\Programing\Cpp_Games\WingmanGame_SFML_In_Cpp\WingmanGame\Game.cpp(366,24): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+D:\OneDrive - e-uvt.ro\Informatica\Programing\Cpp_Games\WingmanGame_SFML_In_Cpp\WingmanGame\Game.cpp(372,19): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+  main.cpp
+D:\OneDrive - e-uvt.ro\Informatica\Programing\Cpp_Games\WingmanGame_SFML_In_Cpp\WingmanGame\Player.h(128,14): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+D:\OneDrive - e-uvt.ro\Informatica\Programing\Cpp_Games\WingmanGame_SFML_In_Cpp\WingmanGame\Enemy.h(49,14): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+  Generating Code...

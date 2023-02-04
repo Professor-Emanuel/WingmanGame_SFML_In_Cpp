@@ -181,7 +181,8 @@ void Game::CombatUpdate() {
 */
 
 void Game::UpdateUIEnemy(int index) {
-	this->enemyText.setPosition(this->enemies[index].getPosition());
+	this->enemyText.setPosition(this->enemies[index].getPosition().x,
+		this->enemies[index].getPosition().y - 15.f);
 	this->enemyText.setString(std::to_string(this->enemies[index].getHP()) +
 		"/" +
 		std::to_string(this->enemies[index].getHPMax()));
@@ -244,6 +245,10 @@ void Game::Update(const float &dt) {
 								int exp = this->enemies[j].getHPMax() +
 									(rand() % this->enemies[j].getHPMax() + 1);
 
+								//gain score
+								int score = this->enemies[j].getHPMax();
+								this->players[i].gainScore(score);
+
 								//level up tag
 								if (this->players[i].gainExp(exp)) {
 									//create text tag
@@ -293,7 +298,9 @@ void Game::Update(const float &dt) {
 			//enemy player collision
 			for (size_t k = 0; k < this->players.size(); k++) {
 				if (this->players[k].isAlive()) {
-					if (this->players[k].getGlobalBounds().intersects(this->enemies[i].getGlobalBounds())) {
+					if (this->players[k].getGlobalBounds().intersects(
+						this->enemies[i].getGlobalBounds())
+						&& !this->players[k].isDamageCooldown()) {
 
 						int damage = this->enemies[i].getDamage();
 						this->players[k].takeDamage(damage);
@@ -304,12 +311,13 @@ void Game::Update(const float &dt) {
 								this->players[k].getPosition().y - 20.f), Vector2f(-1.f, 0.f),
 							30, 20.f, true));
 
+						
 						//player death
 						if (!this->players[k].isAlive()) {
 							this->playersAlive--;
 						}
 
-						this->enemies.remove(i);
+						//this->enemies.remove(i);
 						return; //return!!!
 					}
 				}
