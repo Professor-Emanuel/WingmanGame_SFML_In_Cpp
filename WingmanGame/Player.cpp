@@ -18,6 +18,10 @@ Player::Player(std::vector<Texture>& textures,
 	//dt
 	this->dtMultiplier = 62.5f;
 
+	//keytime
+	this->keyTimeMax = 8.f;
+	this->keyTime = this->keyTimeMax;
+
 	//stats
 	this->expNext = 20 + static_cast<int>((50 / 3) * 
 		((pow(level, 3) - 6 * pow(level, 2)) + 17 * level - 12));
@@ -46,6 +50,12 @@ Player::Player(std::vector<Texture>& textures,
 	this->mainGunSprite.rotate(90);
 
 	this->mainGunSprite.setPosition(this->playerCenter.x + 20.f, this->playerCenter.y);
+
+	//selectors
+	this->lWingSelect = 1;
+	this->rWingSelect = 1;
+	this->cPitSelect = 1;
+	this->auraSelect = 1;
 
 	//accessories
 	this->lWing.setTexture((*this->lWingTextures)[7]);
@@ -85,7 +95,7 @@ Player::Player(std::vector<Texture>& textures,
 	//timers
 	this->shootTimerMax = 25.f;
 	this->shootTimer = this->shootTimerMax;
-	this->damageTimerMax = 10.f;
+	this->damageTimerMax = 40.f;
 	this->damageTimer = this->damageTimerMax;
 
 	//controls
@@ -141,6 +151,15 @@ int Player::getDamage() const {
 	return damage;
 }
 
+void Player::takeDamage(int damage) {
+	this->hp -= damage;
+
+	this->damageTimer = 0;
+
+	this->currentVelocity.x += -this->normDir.x * 10.f;
+	this->currentVelocity.y += -this->normDir.y * 10.f;
+}
+
 bool Player::UpdateLeveling() {
 	if (this->exp >= this->expNext) {
 		this->level++;
@@ -149,10 +168,65 @@ bool Player::UpdateLeveling() {
 		this->expNext = static_cast<int>((50 / 3) *
 			((pow(level, 3) - 6 * pow(level, 2)) + 17 * level - 12));
 
+		this->wiring++;
+		this->cooling++;
+		this->plating++;
+		this->power++;
+
+		this->hpMax = 10 + plating * 5;
+		this->damageMax = 2 + power*2;
+		this->damage = 1 + power;
+
 		this->hp = hpMax;
 		return true;
 	}
 	return false;
+}
+
+void Player::ChangeAccessories() {
+	if (Keyboard::isKeyPressed(Keyboard::Num1) && this->keyTime >= this->keyTimeMax) {
+		if (lWingSelect < (*this->lWingTextures).size() - 1)
+			lWingSelect++;
+		else
+			lWingSelect = 0;
+
+		this->lWing.setTexture((*this->lWingTextures)[lWingSelect]);
+
+		this->keyTime = 0;
+	}
+
+	if (Keyboard::isKeyPressed(Keyboard::Num2) && this->keyTime >= this->keyTimeMax) {
+		if (rWingSelect < (*this->rWingTextures).size() - 1)
+			rWingSelect++;
+		else
+			rWingSelect = 0;
+
+		this->rWing.setTexture((*this->rWingTextures)[rWingSelect]);
+
+		this->keyTime = 0;
+	}
+
+	if (Keyboard::isKeyPressed(Keyboard::Num3) && this->keyTime >= this->keyTimeMax) {
+		if (cPitSelect < (*this->cPitTextures).size() - 1)
+			cPitSelect++;
+		else
+			cPitSelect = 0;
+
+		this->cPit.setTexture((*this->cPitTextures)[cPitSelect]);
+
+		this->keyTime = 0;
+	}
+
+	if (Keyboard::isKeyPressed(Keyboard::Num4) && this->keyTime >= this->keyTimeMax) {
+		if (auraSelect < (*this->auraTextures).size() - 1)
+			auraSelect++;
+		else
+			auraSelect = 0;
+
+		this->aura.setTexture((*this->auraTextures)[auraSelect]);
+
+		this->keyTime = 0;
+	}
 }
 
 void Player::UpdateAccessories(const float &dt) {
@@ -170,10 +244,10 @@ void Player::UpdateAccessories(const float &dt) {
 
 	//letf wing
 	this->lWing.setPosition(playerCenter.x + -abs(this->currentVelocity.x),
-		playerCenter.y + -abs(this->currentVelocity.x/2));
+		playerCenter.y + -abs(this->currentVelocity.x/2 + this->currentVelocity.y/2));
 	//right wing
 	this->rWing.setPosition(playerCenter.x + -abs(this->currentVelocity.x),
-		playerCenter.y + abs(this->currentVelocity.x / 2));
+		playerCenter.y + abs(this->currentVelocity.x / 2 + this->currentVelocity.y/2));
 	//cockpit
 	this->cPit.setPosition(playerCenter.x + this->currentVelocity.x, playerCenter.y);
 	//aura
@@ -182,9 +256,10 @@ void Player::UpdateAccessories(const float &dt) {
 }
 
 void Player::Movement(const float& dt) {
-
+	//update normalized direction
+	this->normDir = normalize(this->currentVelocity, vectorLength(this->currentVelocity));
 	
-
+	//up
 	if (Keyboard::isKeyPressed(Keyboard::Key(this->controls[controls::UP]))) {
 		this->direction.x = 0.f;
 		this->direction.y = -1.f;
@@ -193,6 +268,7 @@ void Player::Movement(const float& dt) {
 			this->currentVelocity.y += this->direction.y * this->acceleration * dt * this->dtMultiplier;
 	}
 
+	//down
 	if (Keyboard::isKeyPressed(Keyboard::Key(this->controls[controls::DOWN]))) {
 		this->direction.x = 0.f;
 		this->direction.y = 1.f;
@@ -201,6 +277,7 @@ void Player::Movement(const float& dt) {
 			this->currentVelocity.y += this->direction.y * this->acceleration * dt * this->dtMultiplier;
 	}
 		
+	//left
 	if (Keyboard::isKeyPressed(Keyboard::Key(this->controls[controls::LEFT]))) {
 		this->direction.x = -1.f;
 		this->direction.y = 0.f;
@@ -208,6 +285,7 @@ void Player::Movement(const float& dt) {
 			this->currentVelocity.x += this->direction.x * this->acceleration * dt * this->dtMultiplier;
 	}
 		
+	//right
 	if (Keyboard::isKeyPressed(Keyboard::Key(this->controls[controls::RIGHT]))) {
 		this->direction.x = 1.f;
 		this->direction.y = 0.f;
@@ -291,6 +369,25 @@ void Player::Combat(const float& dt) {
 
 		this->shootTimer = 0; //reset timer
 	}
+
+	//damaged
+	if (this->isDamageCooldown()) {
+		if ((int)this->damageTimer % 2 == 0) {
+			this->lWing.setColor(Color::Red);
+			this->rWing.setColor(Color::Red);
+			this->cPit.setColor(Color::Red);
+		}
+		else {
+			this->lWing.setColor(Color::White);
+			this->rWing.setColor(Color::White);
+			this->cPit.setColor(Color::White);
+		}
+	}
+	else {
+		this->lWing.setColor(Color::White);
+		this->rWing.setColor(Color::White);
+		this->cPit.setColor(Color::White);
+	}
 }
 
 Bullet& Player::getBullet(unsigned index) {
@@ -315,7 +412,11 @@ void Player::Update(Vector2u windowBounds, const float& dt) {
 	if (this->damageTimer < this->damageTimerMax)
 		this->damageTimer += 1.f * dt * this->dtMultiplier;
 
+	if (this->keyTime < this->keyTimeMax)
+		this->keyTime += 1.f * dt * this->dtMultiplier;
+
 	this->Movement(dt);
+	this->ChangeAccessories();
 	this->UpdateAccessories(dt);
 	this->Combat(dt);
 }
