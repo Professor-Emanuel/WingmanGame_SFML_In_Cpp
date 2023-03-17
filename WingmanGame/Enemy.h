@@ -25,8 +25,8 @@ private:
 
 public:
 	Enemy(dArr<Texture> &textures, Vector2u windowBounds, 
-		Vector2f position, Vector2f direction, float maxVelocity, Vector2f scale, int type,
-		int hpMax, int damageMax, int damageMin, int playerFollowNr);
+		Vector2f position, Vector2f direction, Vector2f scale, int type,
+		int scalar, int playerFollowNr);
 
 	virtual ~Enemy();
 
@@ -40,7 +40,7 @@ public:
 	inline const int& getPlayerFollowNr() const { return this->playerFollowNr; }
 
 	//functions
-	void collisionUpdate(const float& dt);
+	void collision();
 	void takeDamage(int damage);
 	void Update(const float &dt, Vector2f playerPosition);
 	void Draw(RenderTarget& target);

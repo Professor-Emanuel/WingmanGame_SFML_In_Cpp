@@ -16,10 +16,10 @@ Game::Game(RenderWindow* window) {
 	//init player
 	this->players.add(Player(this->textures, this->lWingTextures, this->rWingTextures, 
 		this->cPitTextures, this->auraTextures));
-	this->players.add(Player(this->textures, this->lWingTextures, this->rWingTextures,
+	/*this->players.add(Player(this->textures, this->lWingTextures, this->rWingTextures,
 		this->cPitTextures, this->auraTextures,
 		Keyboard::Numpad8, Keyboard::Numpad5, 
-		Keyboard::Numpad4, Keyboard::Numpad6, Keyboard::Numpad1));
+		Keyboard::Numpad4, Keyboard::Numpad6, Keyboard::Numpad1));*/
 
 	this->playersAlive = this->players.size();
 
@@ -28,11 +28,11 @@ Game::Game(RenderWindow* window) {
 		*/
 	
 	//init enemies
-	Enemy e1(this->enemyTextures, this->window->getSize(),
+	/*Enemy e1(this->enemyTextures, this->window->getSize(),
 		Vector2f(0.f, 0.f), Vector2f(-1.f, 0.f), Vector2f(0.1f, 0.1f), 0, rand() % 3 + 1, 3, 1, 
 		rand()%this->players.size());
-	
-	this->enemiesSaved.push_back(Enemy(e1));
+	*/
+	//this->enemiesSaved.push_back(Enemy(e1));
 
 	this->enemySpawnTimerMax = 25.f;
 	this->enemySpawnTimer = this->enemySpawnTimerMax;
@@ -146,6 +146,12 @@ void Game::InitUI() {
 	this->gameOverText.setCharacterSize(40);
 	this->gameOverText.setString("GAME OVER!");
 	this->gameOverText.setPosition(this->window->getSize().x/2 - 100.f, this->window->getSize().y / 2);
+
+	this->scoreText.setFont(this->font);
+	this->scoreText.setFillColor(Color::White);
+	this->scoreText.setCharacterSize(32);
+	this->scoreText.setString("Score: 0");
+	this->scoreText.setPosition(10.f, 10.f);
 }
 
 void Game::UpdateUIPlayer(int index) {
@@ -200,7 +206,7 @@ void Game::Update(const float &dt) {
 		if (this->enemySpawnTimer >= this->enemySpawnTimerMax) {
 			this->enemies.add(Enemy(this->enemyTextures, this->window->getSize(),
 				Vector2f(0.f, 0.f), Vector2f(-1.f, 0.f), Vector2f(0.1f, 0.1f),
-				rand()%2, rand() % 3 + 1, 2, 1, rand()%this->players.size()));
+				rand()%2, this->players[(rand()%playersAlive)].getLevel(), rand() % this->players.size()));
 
 			this->enemySpawnTimer = 0; //reset timer
 		}
@@ -287,6 +293,11 @@ void Game::Update(const float &dt) {
 					}
 				}
 			}
+
+			//update score
+			this->score = 0;
+			this->score += players[i].getScore();
+			this->scoreText.setString(std::to_string(this->score));
 		}
 
 		//update enemies
@@ -304,6 +315,8 @@ void Game::Update(const float &dt) {
 
 						int damage = this->enemies[i].getDamage();
 						this->players[k].takeDamage(damage);
+
+						this->enemies[i].collision();
 
 						//create text tag
 						this->textTags.add(TextTag(&this->font, "-" + std::to_string(damage),
@@ -342,8 +355,18 @@ void Game::Update(const float &dt) {
 }
 
 void Game::DrawUI() {
+	//draw texttags
+	for (size_t i = 0; i < this->textTags.size(); i++) {
+		this->textTags[i].Draw(*this->window);
+	}
 
-	
+	//Game Over Text
+	if (this->playersAlive <= 0) {
+		this->window->draw(this->gameOverText);
+	}	
+
+	//score text
+	this->window->draw(this->scoreText);
 }
 
 void Game::Draw() {
@@ -367,15 +390,7 @@ void Game::Draw() {
 		this->window->draw(this->enemyText);
 	}
 
-	//draw texttags
-	for (size_t i = 0; i < this->textTags.size(); i++) {
-		this->textTags[i].Draw(*this->window);
-	}
-
-	//Game Over Text
-	if (this->playersAlive <= 0) {
-		this->window->draw(this->gameOverText);
-	}
+	this->DrawUI();
 
 	//this->DrawUI();
 	this->window->display();
