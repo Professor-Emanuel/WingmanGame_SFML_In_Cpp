@@ -115,7 +115,7 @@ public:
 	void ChangeAccessories();
 	void UpdateAccessories(const float& dt);
 	void Combat(const float& dt);
-	void Movement(const float& dt);
+	void Movement(Vector2u windowBounds, const float& dt);
 	void Update(Vector2u windowBounds, const float& dt);
 	void Draw(RenderTarget& target);
 	

@@ -6,8 +6,10 @@
 class Game
 {
 private:
+	//game
 	RenderWindow* window;
 	float dtMultiplier;
+	unsigned score;
 
 	//text
 	Font font;
@@ -15,6 +17,7 @@ private:
 	Text staticPlayerText;
 	Text enemyText;
 	Text gameOverText;
+	Text scoreText;
 
 	//bars
 	RectangleShape playerExpBar;
