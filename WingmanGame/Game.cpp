@@ -6,6 +6,12 @@ Game::Game(RenderWindow* window) {
 	this->window = window;
 	//this->window->setFramerateLimit(60);
 	this->dtMultiplier = 62.5f;
+	this->scoreMultiplier = 1;
+	this->score = 0;
+	this->multiplierAdderMax = 10;
+	this->multiplierAdder = 0;
+	this->multiplierTimerMax = 400.f;
+	this->multiplierTimer = this->multiplierTimerMax;
 
 	//init fonts
 	this->font.loadFromFile("Fonts/Dosis-Light.ttf");
@@ -62,6 +68,10 @@ void Game::InitTextures() {
 	temp.loadFromFile("Textures/enemyFollow.png");
 	//this->textures.push_back(Texture());
 	this->enemyTextures.add(Texture(temp));
+	temp.loadFromFile("Textures/enemyMoveLeftShoot.png");
+	//this->textures.push_back(Texture());
+	this->enemyTextures.add(Texture(temp));
+
 
 	//init accessory textures
 	std::ifstream in;
@@ -148,7 +158,7 @@ void Game::InitUI() {
 	this->gameOverText.setPosition(this->window->getSize().x/2 - 100.f, this->window->getSize().y / 2);
 
 	this->scoreText.setFont(this->font);
-	this->scoreText.setFillColor(Color::White);
+	this->scoreText.setFillColor(Color(200,200,200, 150));
 	this->scoreText.setCharacterSize(32);
 	this->scoreText.setString("Score: 0");
 	this->scoreText.setPosition(10.f, 10.f);
@@ -188,7 +198,7 @@ void Game::CombatUpdate() {
 
 void Game::UpdateUIEnemy(int index) {
 	this->enemyText.setPosition(this->enemies[index].getPosition().x,
-		this->enemies[index].getPosition().y - 15.f);
+		this->enemies[index].getPosition().y - this->enemies[index].getGlobalBounds().height);
 	this->enemyText.setString(std::to_string(this->enemies[index].getHP()) +
 		"/" +
 		std::to_string(this->enemies[index].getHPMax()));
@@ -202,11 +212,25 @@ void Game::Update(const float &dt) {
 			this->enemySpawnTimer += 1.f * dt * this->dtMultiplier;
 		}
 
+		//score timer and multipliers
+		if (this->multiplierTimer > 0.f) {
+			this->multiplierTimer -= 1.f * dt * this->dtMultiplier;
+
+			if (this->multiplierTimer <= 0.f) {
+				this->multiplierTimer = 0.f;
+				this->multiplierAdder = 0;
+				this->scoreMultiplier = 1;
+			}
+		}
+
+		this->scoreMultiplier = this->multiplierAdder / this->multiplierAdderMax + 1;
+
 		//spawn enemies
 		if (this->enemySpawnTimer >= this->enemySpawnTimerMax) {
 			this->enemies.add(Enemy(this->enemyTextures, this->window->getSize(),
-				Vector2f(0.f, 0.f), Vector2f(-1.f, 0.f), Vector2f(0.1f, 0.1f),
-				rand()%2, this->players[(rand()%playersAlive)].getLevel(), rand() % this->players.size()));
+				Vector2f(0.f, 0.f), Vector2f(-1.f, 0.f),
+				rand()%3, this->players[(rand()%playersAlive)].getLevel(), 
+				rand() % this->playersAlive));
 
 			this->enemySpawnTimer = 0; //reset timer
 		}
@@ -251,9 +275,18 @@ void Game::Update(const float &dt) {
 								int exp = this->enemies[j].getHPMax() +
 									(rand() % this->enemies[j].getHPMax() + 1);
 
-								//gain score
-								int score = this->enemies[j].getHPMax();
+								//gain score & reset multiplier timer
+								this->multiplierTimer = this->multiplierTimerMax;
+								int score = this->enemies[j].getHPMax() * this->scoreMultiplier;
+								this->multiplierAdder++;
 								this->players[i].gainScore(score);
+
+								//score text tag
+								this->textTags.add(TextTag(&this->font, "+ " + std::to_string(score)
+									+"( x"+std::to_string(this->scoreMultiplier) + " )",
+									Color::White, Vector2f(100.f, 10.f),
+									Vector2f(1.f, 0.f),
+									30, 30.f, true));
 
 								//level up tag
 								if (this->players[i].gainExp(exp)) {
@@ -297,7 +330,13 @@ void Game::Update(const float &dt) {
 			//update score
 			this->score = 0;
 			this->score += players[i].getScore();
-			this->scoreText.setString(std::to_string(this->score));
+			this->scoreText.setString("Score: " 
+				+ std::to_string(this->score)
+				+"\nMultiplier:" + std::to_string(this->scoreMultiplier)
+				+"\nMultiplier Timer: " + std::to_string((int)this->multiplierTimer)
+				+"\nNew Multiplier: " + std::to_string(this->multiplierAdder)
+				+" / "
+				+ std::to_string(this->multiplierAdderMax));
 		}
 
 		//update enemies

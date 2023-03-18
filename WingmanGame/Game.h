@@ -10,6 +10,11 @@ private:
 	RenderWindow* window;
 	float dtMultiplier;
 	unsigned score;
+	unsigned scoreMultiplier;
+	float multiplierTimerMax;
+	float multiplierTimer;
+	int multiplierAdder;
+	int multiplierAdderMax;
 
 	//text
 	Font font;

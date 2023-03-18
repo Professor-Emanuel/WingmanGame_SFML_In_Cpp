@@ -9,8 +9,10 @@ private:
 	dArr<Texture>* textures;
 	Sprite sprite;
 	Vector2u windowBounds;
-	Vector2f direction;
-	Vector2f normalizedDir;
+	Vector2f moveDirection;
+	Vector2f normalizedMoveDir;
+	Vector2f lookDirection;
+	Vector2f normalizedLookDir;
 	float maxVelocity;
 
 	float damageTimerMax;
@@ -25,7 +27,7 @@ private:
 
 public:
 	Enemy(dArr<Texture> &textures, Vector2u windowBounds, 
-		Vector2f position, Vector2f direction, Vector2f scale, int type,
+		Vector2f position, Vector2f direction, int type,
 		int scalar, int playerFollowNr);
 
 	virtual ~Enemy();
